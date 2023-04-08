@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('Excluir')">
                         {{ __('Excluir Usuario') }}
                     </x-nav-link>
+                     <x-nav-link :href="route('cadastrarProduto')" :active="request()->routeIs('cadastrarProduto')">
+                        {{ __('Cadastro de Produto') }}
+                    </x-nav-link>
                 </div>
             </div>
 
