@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProdutosController;
+use App\Http\Controllers\PedidosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('excluirUsuario', [UsuarioController::class, 'create'])->name('excluirUsuario');
     Route::post('excluirUsuario', [UsuarioController::class, 'destroy']);
 
-    Route::get('cadastrarProduto', [ProdutosController::class, 'index'])->name('cadastrarProduto');
-    Route::post('cadastrarProduto', [ProdutosController::class, 'create'])->name('cadastrarProduto');;
+    Route::get('cadastrarPedido', [PedidosController::class, 'index'])->name('cadastrarPedido');
+    Route::post('cadastrarPedido', [PedidosController::class, 'create'])->name('cadastrarPedido');;
 });
 
 require __DIR__.'/auth.php';

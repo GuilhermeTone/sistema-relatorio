@@ -21,8 +21,8 @@
                     <x-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('Excluir')">
                         {{ __('Excluir Usuario') }}
                     </x-nav-link>
-                     <x-nav-link :href="route('cadastrarProduto')" :active="request()->routeIs('cadastrarProduto')">
-                        {{ __('Cadastro de Produto') }}
+                     <x-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
+                        {{ __('Cadastro de Pedido') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -107,3 +107,8 @@
         </div>
     </div>
 </nav>
+<script
+  src="https://code.jquery.com/jquery-3.6.4.slim.min.js"
+  integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
