@@ -12,17 +12,20 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Cadastrar Usuario') }}
                     </x-nav-link>
                     <x-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('Excluir')">
                         {{ __('Excluir Usuario') }}
                     </x-nav-link>
-                     <x-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
+                    <x-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
                         {{ __('Cadastro de Pedido') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('cadastrarProduto')" :active="request()->routeIs('cadastrarProduto')">
+                        {{ __('Cadastrar Produtos') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -112,3 +115,6 @@
   integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw="
   crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>

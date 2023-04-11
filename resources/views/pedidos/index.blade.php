@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Cadastrar Produtos') }}
+            {{ __('Cadastrar Pedidos') }}
         </h2>
     </x-slot>
 
@@ -22,7 +22,7 @@
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                        <span class="font-medium">Sucesso,</span> Produto/Produtos cadastrado(s) com sucesso
+                        <span class="font-medium">Sucesso,</span> Pedido cadastrado com sucesso
                     </div>
                     </div>
                    
@@ -32,7 +32,7 @@
                         class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg"
                         onclick="adicionaProduto()">Incluir produto</button>
                 </div>
-                <form method="POST" action="{{ route('cadastrarProduto') }}" onsubmit="desabilita()">
+                <form method="POST" action="{{ route('cadastrarPedido') }}" onsubmit="desabilita()">
                     @csrf
                     <table class="w-full leading-normal ">
                         <thead
@@ -41,12 +41,17 @@
                                 <th scope="col"
                                     class="text-gray-dark border-gray border-b-2 border-t-2 border-gray-200 py-3 px-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-white text-center">
 
-                                    Produto
+                                    Unidade de medida
                                 </th>
                                 <th scope="col"
                                     class="text-gray-dark border-gray border-b-2 border-t-2 border-gray-200 py-3 px-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-white text-center">
                                     <!---->
-                                    Tipo
+                                    Quantidade
+                                </th>
+                                <th scope="col"
+                                    class="text-gray-dark border-gray border-b-2 border-t-2 border-gray-200 py-3 px-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-white text-center">
+
+                                    Produtos
                                 </th>
                                 <th scope="col"
                                     class="text-gray-dark border-gray border-b-2 border-t-2 border-gray-200 py-3 px-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-white text-center">
@@ -57,18 +62,29 @@
                         </thead>
                         <tbody class="inputs-body">
                             <tr class="">
-                                 <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm ">
-                                    <x-text-input id="produto[0]" class="block mt-1 w-full produto" type="text"
-                                        name="produto[0]" required />
+                                <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm ">
+                                    <div class="flex items-center">
+                                        <select id="unidade[0]" name="unidade[0]" required
+                                            class="block w-full chosen-select px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="" selected disabled>Selecione a medida</option>
+                                            <option value="kg">KG</option>
+                                            <option value="cx">CX</option>
+                                            <option value="unidade">Unidade</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm ">
+                                    <x-text-input id="quantidade[0]" class="block mt-1 w-full quantidade" type="text"
+                                        name="quantidade[0]" required />
                                 </td>
                                 <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm ">
                                     <div class="flex items-center">
-                                        <select id="tipo[0]" name="tipo[0]" required
-                                            class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option value="" selected disabled>Selecion o Tipo</option>
-                                            <option value="Legumes">Legumes</option>
-                                            <option value="Verduras">Verduras</option>
-                                            <option value="Frutas">Frutas</option>
+                                        <select id="produto[0]" name="produto[0]" required
+                                            class="block w-full chosen-select px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="" selected disabled>Selecione o produto</option>
+                                            @foreach ($produtos as $produto)
+                                                <option value="{{ $produto->idProduto }}">{{ $produto->Nome }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </td>
@@ -93,4 +109,7 @@
 
 
 </x-app-layout>
-<script src="{{ asset('js/produtos/index.js') }}"></script>
+<script>
+    var produtos = ('<?php echo json_encode($produtos); ?>');
+</script>
+<script src="{{ asset('js/pedidos/index.js') }}"></script>

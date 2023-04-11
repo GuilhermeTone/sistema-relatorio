@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('cadastrarPedido', [PedidosController::class, 'index'])->name('cadastrarPedido');
     Route::post('cadastrarPedido', [PedidosController::class, 'create'])->name('cadastrarPedido');;
+
+    Route::get('cadastrarProduto', [ProdutosController::class, 'index'])->name('cadastrarProduto');
+    Route::post('cadastrarProduto', [ProdutosController::class, 'create'])->name('cadastrarProduto');;
 });
 
 require __DIR__.'/auth.php';

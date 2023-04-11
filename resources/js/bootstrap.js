@@ -3,6 +3,11 @@
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
+import $ from 'jquery';
+window.$ = $;
+
+import mask from 'jquery-mask-plugin';
+window.mask = mask;
 
 import axios from 'axios';
 window.axios = axios;

@@ -7,14 +7,15 @@ use App\Models\Produto;
 use App\Models\Pedidos;
 use App\Models\pedidosProdutos;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PedidosController extends Controller
 {
     public function index()
     {
         $data['produtos'] = Produto::select('idProduto', 'Nome')->get();
-
-        return view('produtos.index', $data);
+        $data['mensagem'] = session('mensagem');
+        return view('pedidos.index', $data);
     }
     public function create(Request $request)
     {
@@ -51,6 +52,9 @@ class PedidosController extends Controller
                     'Unidade' => $unidades[$index],
                 ]);
             }
+            Session::flash('mensagem', 'Pedido inserido com sucesso');
+            return back();
+        
         }
     }
 }
