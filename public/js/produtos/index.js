@@ -1,5 +1,5 @@
 $(document).ready(function () {
-     $('.produto').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
+    //  $('.produto').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
     
 });
 
@@ -25,6 +25,19 @@ function adicionaProduto(){
                                 </div>
                             </td>
                             <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm ">
+                                    <div class="flex items-center">
+                                        <select id="padrao[` + index +`]" name="padrao[` + index +`]" required
+                                            class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="" selected disabled>Selecion o Padrão de unidade do produto</option>
+                                            <option value="Caixa">Caixa</option>
+                                            <option value="Unidade">Unidade</option>
+                                            <option value="Saco">Saco</option>
+                                            <option value="Maco">Maço</option>
+                                            <option value="Kilo">Kilo</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm ">
                                 <div class="flex items-center justify-center">
                                     <button type="button" style="width: 10rem; height:2rem; margin-right: 15px; background-color:rgb(151, 5, 5)" class="text-white focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 rounded-lg" onclick="excluirproduto('` + index +`')">Excluir produto</button>
                                 </div>
@@ -38,7 +51,7 @@ function adicionaProduto(){
         $('select[name="produto[' + index + ']"]').append(html2);
         index++
         
-        $('.produto').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
+        // $('.produto').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
 
        
 }

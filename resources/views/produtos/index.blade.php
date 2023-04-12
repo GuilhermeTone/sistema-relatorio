@@ -48,6 +48,11 @@
                                     <!---->
                                     Tipo
                                 </th>
+                                      <th scope="col"
+                                    class="text-gray-dark border-gray border-b-2 border-t-2 border-gray-200 py-3 px-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-white text-center">
+                                    <!---->
+                                    Padrão
+                                </th>
                                 <th scope="col"
                                     class="text-gray-dark border-gray border-b-2 border-t-2 border-gray-200 py-3 px-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-white text-center">
 
@@ -69,6 +74,19 @@
                                             <option value="Legumes">Legumes</option>
                                             <option value="Verduras">Verduras</option>
                                             <option value="Frutas">Frutas</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm ">
+                                    <div class="flex items-center">
+                                        <select id="padrao[0]" name="padrao[0]" required
+                                            class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="" selected disabled>Selecione o Padrão de unidade do produto</option>
+                                            <option value="Caixa">Caixa</option>
+                                            <option value="Unidade">Unidade</option>
+                                            <option value="Saco">Saco</option>
+                                            <option value="Maco">Maço</option>
+                                            <option value="Kilo">Kilo</option>
                                         </select>
                                     </div>
                                 </td>

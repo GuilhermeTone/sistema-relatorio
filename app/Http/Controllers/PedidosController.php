@@ -13,44 +13,73 @@ class PedidosController extends Controller
 {
     public function index()
     {
-        $data['produtos'] = Produto::select('idProduto', 'Nome')->get();
+        $data['Frutas'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Frutas', 'Ocultar' => 'N'])->orderBy('Nome', 'asc')->get();
+        $data['Legumes'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Legumes', 'Ocultar' => 'N'])->orderBy('Nome', 'asc')->get();
+        $data['Verduras'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Verduras', 'Ocultar' => 'N'])->orderBy('Nome', 'asc')->get();
         $data['mensagem'] = session('mensagem');
         return view('pedidos.index', $data);
     }
     public function create(Request $request)
     {
-        $unidades = $request->get('unidade');
-        $quantidades = $request->get('quantidade');
-        $produtos = $request->get('produto');
+        //Frutas
+        $idProdutoFrutas = $request->get('idProdutoFrutas');
+        $quantidadeFrutas = $request->get('quantidadeFrutas');
+        $unidadeFrutas = $request->get('unidadeFrutas');
+
+        //Legumes
+        $idProdutoLegumes = $request->get('idProdutoLegumes');
+        $quantidadeLegumes = $request->get('quantidadeLegumes');
+        $unidadeLegumes = $request->get('unidadeLegumes');
+
+        //Verduras
+        $idProdutoVerduras = $request->get('idProdutoVerduras');
+        $quantidadeVerduras = $request->get('quantidadeVerduras');
+        $unidadeVerduras = $request->get('unidadeVerduras');
 
         $erros = [];
 
-        for ($i = 0; $i < count($unidades); $i++) {
-            if (strlen($unidades[$i]) == 0) {
-                $erros[] = 'Unidade na linha ' . $i . ' não pode estar em branco';
-            }
-            if (strlen($quantidades[$i]) == 0) {
-                $erros[] = 'Unidade na linha ' . $i . ' não pode estar em branco';
-            }
-            if (strlen($produtos[$i]) == 0) {
-                $erros[] = 'Unidade na linha ' . $i . ' não pode estar em branco';
-            }
-        }
-
         if (!$erros) {
+            
             $idPedido = Pedidos::create([
                 'idLoja' => Auth::user()->idLoja,
                 'idUsuario' => Auth::id(),
             ]);
 
-            foreach ($unidades as $index => $value) {
+            //FOREACH PARA FRUTAS
+            foreach ($idProdutoFrutas as $index => $value) {
+                if (strlen($quantidadeFrutas[$index]) > 0) {
+                    $idPedidoProduto = pedidosProdutos::create([
+                        'idProduto' => $idProdutoFrutas[$index],
+                        'idPedido' => $idPedido->id,
+                        'Quantidade' => $quantidadeFrutas[$index],
+                        'Unidade' => $unidadeFrutas[$index],
+                    ]);
+                }
+            }
 
-                $idPedidoProduto = pedidosProdutos::create([
-                    'idProduto' => $produtos[$index],
-                    'idPedido' => $idPedido->id,
-                    'Quantidade' => $quantidades[$index],
-                    'Unidade' => $unidades[$index],
-                ]);
+            //FOREACH PARA LEGUMES
+            foreach ($idProdutoLegumes as $index => $value) {
+                if(strlen($quantidadeLegumes[$index]) > 0){
+                    $idPedidoProduto = pedidosProdutos::create([
+                        'idProduto' => $idProdutoLegumes[$index],
+                        'idPedido' => $idPedido->id,
+                        'Quantidade' => $quantidadeLegumes[$index],
+                        'Unidade' => $unidadeLegumes[$index],
+                    ]);
+                }
+                
+            }
+
+            //FOREACH PARA VERDURAS
+            foreach ($idProdutoVerduras as $index => $value) {
+                if (strlen($quantidadeVerduras[$index]) > 0) {
+                    $idPedidoProduto = pedidosProdutos::create([
+                        'idProduto' => $idProdutoVerduras[$index],
+                        'idPedido' => $idPedido->id,
+                        'Quantidade' => $quantidadeVerduras[$index],
+                        'Unidade' => $unidadeVerduras[$index],
+                    ]);
+                }
             }
             Session::flash('mensagem', 'Pedido inserido com sucesso');
             return back();

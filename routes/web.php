@@ -37,7 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::post('cadastrarPedido', [PedidosController::class, 'create'])->name('cadastrarPedido');;
 
     Route::get('cadastrarProduto', [ProdutosController::class, 'index'])->name('cadastrarProduto');
-    Route::post('cadastrarProduto', [ProdutosController::class, 'create'])->name('cadastrarProduto');;
+    Route::post('cadastrarProduto', [ProdutosController::class, 'create'])->name('cadastrarProduto');
+
+    Route::get('editarProduto', [ProdutosController::class, 'indexEditar'])->name('editarProduto');
+    Route::post('listarinfoProduto', [ProdutosController::class, 'info'])->name('listarinfoProduto');
+    Route::post('editarProduto', [ProdutosController::class, 'update'])->name('editarProduto');
 });
 
 require __DIR__.'/auth.php';

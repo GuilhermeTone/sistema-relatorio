@@ -1,3 +1,9 @@
+<style>
+    .centralizar{
+        text-align: center !important;
+    }
+</style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,6 +32,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('cadastrarProduto')" :active="request()->routeIs('cadastrarProduto')">
                         {{ __('Cadastrar Produtos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('editarProduto')" :active="request()->routeIs('editarProduto')">
+                        {{ __('Editar Produtos') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -118,3 +127,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<!-- Biblioteca Buttons do DataTables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+
+<!-- Biblioteca JSZip (necessária para a exportação de dados para Excel) -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+<script>var TOKEN_CSRF = document.querySelector('meta[name="csrf-token"]').getAttribute('content');</script>
