@@ -13,9 +13,9 @@ class PedidosController extends Controller
 {
     public function index()
     {
-        $data['Frutas'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Frutas', 'Ocultar' => 'N'])->orderBy('Nome', 'asc')->get();
-        $data['Legumes'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Legumes', 'Ocultar' => 'N'])->orderBy('Nome', 'asc')->get();
-        $data['Verduras'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Verduras', 'Ocultar' => 'N'])->orderBy('Nome', 'asc')->get();
+        $data['Frutas'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Frutas', 'Ocultar' => 'N', 'deleted_at' => NULL])->orderBy('Nome', 'asc')->get();
+        $data['Legumes'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Legumes', 'Ocultar' =>'N', 'deleted_at' => NULL])->orderBy('Nome', 'asc')->get();
+        $data['Verduras'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Verduras', 'Ocultar' =>'N', 'deleted_at' => NULL])->orderBy('Nome', 'asc')->get();
         $data['mensagem'] = session('mensagem');
         return view('pedidos.index', $data);
     }

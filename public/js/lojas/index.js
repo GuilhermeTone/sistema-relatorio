@@ -11,7 +11,7 @@ $(document).ready(function () {
 
         columns: [
             {
-                data: "idProduto",
+                data: "idLoja",
                 sClass: "text-center"
             },
             {
@@ -20,35 +20,15 @@ $(document).ready(function () {
             },
 
             {
-                data: "Tipos",
-                sClass: "text-center"
-            },
-
-            {
-                data: "Padrao",
-                sClass: "text-center"
-            },
-            {
-                data: function (row, type, val, meta) {
-
-                    if (row['Ocultar'] == 'N') {
-                        return 'Não';
-                    } else {
-                        return 'Sim';
-                    }
-                },
-                sClass: "text-center"
-            },
-            {
                 data: function (row, type, val, meta) {
 
                     var botoes = '';
                     botoes += `
-                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" style="width:150px; height: 35px;" onclick="editarProduto('`+ row["idProduto"] + `')">
+                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" style="width:150px; height: 35px;" onclick="editarLoja('`+ row["idLoja"] + `')">
                         <i class="fa fa-trash"></i>
                             Editar produto
                     </button><br>
-                    <button type="button" class="text-white bg-red-800 mt-2 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm px-5 mb-2 dark:bg-red-800 dark:hover:bg-red-700 dark:focus:ring-red-700 dark:border-red-700 rounded-lg" style="width:150px; height: 35px;" onclick="excluirProduto('`+ row["idProduto"] + `')">
+                    <button type="button" class="text-white bg-red-800 mt-2 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm px-5 mb-2 dark:bg-red-800 dark:hover:bg-red-700 dark:focus:ring-red-700 dark:border-red-700 rounded-lg" style="width:150px; height: 35px;" onclick="excluirLoja('`+ row["idLoja"] + `')">
                         <i class="fa fa-trash"></i>
                             Excluir produto
                     </button><br>`
@@ -79,32 +59,26 @@ $(document).ready(function () {
             },
         },
     });
-    tabela.rows.add(JSON.parse(produtos)).draw()
+    tabela.rows.add(JSON.parse(lojas)).draw()
 
 
 
 });
+function editarLoja(idLoja) {
 
-function editarProduto(idProduto) {
-
-    $('#idProduto').val('');
-    $('#Produto').val('');
-    $('#tipo').val('');
-    $('#unidade').val('');
+    $('#idLoja').val('');
+    $('#Nome').val('');
 
     $.ajax({
         type: `POST`,
-        url: `http://127.0.0.1:8000/listarinfoProduto`,
+        url: `http://127.0.0.1:8000/listaLoja`,
         data: {
-            idProduto: idProduto,
+            idLoja: idLoja,
             _token: TOKEN_CSRF,
         },
         success: (response) => {
-            $('#idProduto').val(idProduto);
-            $('#Produto').val(response[0].Nome);
-            $('#tipo').val(response[0].Tipos);
-            $('#unidade').val(response[0].Padrao);
-            $('#ocultar').val(response[0].Ocultar);
+            $('#idLoja').val(idLoja);
+            $('#Nome').val(response[0].Nome);
         },
         error: (error) => {
             swal({
@@ -121,11 +95,10 @@ function editarProduto(idProduto) {
 function desabilita() {
     $('#btnsubmit').prop('disabled', true);
 }
-function excluirProduto(idProduto) {
-
+function excluirLoja(idLoja){
     swal({
         Title: "Atenção!",
-        text: "Deseja realmente excluir o Produto",
+        text: "Deseja realmente excluir a Loja?",
         closeOnClickOutside: false,
         closeOnEsc: false,
         buttons: {
@@ -147,15 +120,15 @@ function excluirProduto(idProduto) {
         if (value) {
             $.ajax({
                 type: `POST`,
-                url: `http://127.0.0.1:8000/excluirProduto`,
+                url: `http://127.0.0.1:8000/excluirLoja`,
                 data: {
-                    idProduto: idProduto,
+                    idLoja: idLoja,
                     _token: TOKEN_CSRF,
                 },
                 success: (response) => {
                     if (response) {
                         swal({
-                            text: "Sucesso, Produto deletado",
+                            text: "Sucesso, Loja deletado",
                             icon: "success",
                             buttons: false,
                             timer: 2000
@@ -168,7 +141,7 @@ function excluirProduto(idProduto) {
                             icon: "error",
                             buttons: false,
                             timer: 2000
-                            
+
                         });
                     }
 
@@ -188,5 +161,4 @@ function excluirProduto(idProduto) {
             swal.close();
         }
     });
-
 }

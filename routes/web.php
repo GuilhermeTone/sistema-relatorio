@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LojasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProdutosController;
@@ -42,6 +43,13 @@ Route::middleware('auth')->group(function () {
     Route::get('editarProduto', [ProdutosController::class, 'indexEditar'])->name('editarProduto');
     Route::post('listarinfoProduto', [ProdutosController::class, 'info'])->name('listarinfoProduto');
     Route::post('editarProduto', [ProdutosController::class, 'update'])->name('editarProduto');
+    Route::post('excluirProduto', [ProdutosController::class, 'delete'])->name('excluirProduto');
+
+    Route::get('lojas', [LojasController::class, 'index'])->name('lojas');
+    Route::post('criarLoja', [LojasController::class, 'create'])->name('criarLoja');
+    Route::post('listaLoja', [LojasController::class, 'listarLoja'])->name('listaLoja');
+    Route::post('editaLoja', [LojasController::class, 'update'])->name('editaLoja');
+    Route::post('excluirLoja', [LojasController::class, 'delete'])->name('excluirLoja');
 });
 
 require __DIR__.'/auth.php';

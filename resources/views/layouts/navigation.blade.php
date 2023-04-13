@@ -36,6 +36,9 @@
                     <x-nav-link :href="route('editarProduto')" :active="request()->routeIs('editarProduto')">
                         {{ __('Editar Produtos') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('lojas')" :active="request()->routeIs('lojas')">
+                        {{ __('Lojas') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -138,4 +141,5 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>var TOKEN_CSRF = document.querySelector('meta[name="csrf-token"]').getAttribute('content');</script>

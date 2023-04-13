@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     <div class="mt-4">
-                        <x-input-label for="unidade" :value="__('Unidade')" />
+                        <x-input-label for="unidade" :value="__('Padrao')" />
                         <select id="unidade" name="unidade" required
                             class="block w-full text-base text-gray-900 border mt-3 border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="Caixa">Caixa</option>

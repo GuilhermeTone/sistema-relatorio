@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('Nome');
             $table->enum('Tipos', ['Frutas', 'Legumes', 'Verduras']);
             $table->enum('Padrao', ['Caixa', 'Unidade', 'Saco', 'Maco' ,'Kilo']);
+            $table->enum('Ocultar', ['N', 'S']);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
         });

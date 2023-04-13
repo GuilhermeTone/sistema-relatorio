@@ -53,7 +53,7 @@ class ProdutosController extends Controller
    }
    public function indexEditar()
    {
-      $data['produtos'] = Produto::select('idProduto', 'Nome','Tipos','Padrao', 'Ocultar')->get();
+      $data['produtos'] = Produto::select('idProduto', 'Nome','Tipos','Padrao', 'Ocultar')->where('deleted_at' , NULL)->get();
       $data['mensagem'] = session('mensagem');
       return view('produtos.editar', $data);
    }
@@ -74,7 +74,15 @@ class ProdutosController extends Controller
 
       Produto::where('idProduto', $idProduto)->update(['Nome' => $produtos, 'Tipos' =>  $tipo, 'Padrao' =>  $unidade, 'Ocultar' => $ocultar]);
          
-      Session::flash('mensagem', 'Pedido inserido com sucesso');
+      Session::flash('mensagem', 'Produto editado com sucesso');
       return back();
+   }
+   public function delete(Request $request)
+   {
+      $idProduto = $request->get('idProduto');
+
+      Produto::where('idProduto', $idProduto)->delete();
+
+      return response()->json('Sucesso');
    }
 }
