@@ -147,7 +147,7 @@ function excluirProduto(idProduto) {
         if (value) {
             $.ajax({
                 type: `POST`,
-                url: `http://127.0.0.1:8000/excluirProduto`,
+                url: `${APP_URL}/excluirProduto`,
                 data: {
                     idProduto: idProduto,
                     _token: TOKEN_CSRF,

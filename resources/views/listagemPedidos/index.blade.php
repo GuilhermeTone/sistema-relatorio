@@ -6,11 +6,38 @@
     #datatable-search_length {
         width: 25%;
     }
+    .ocultar-elementos *:not(table) {
+        display: none !important;
+    }
+    @media print {
+  /* ocultar o cabeçalho e o rodapé */
+  header, footer {
+    display: none;
+  }
+
+  /* remover margens e preenchimentos */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* definir a largura máxima para a tabela */
+  table {
+    max-width: 100%;
+  }
+
+  /* definir o tamanho da fonte e a cor do texto */
+  td, th {
+    font-size: 12px;
+    color: #333;
+  }
+}
+
 </style>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lojas') }}
+            {{ __('Listagem Pedidos') }}
         </h2>
     </x-slot>
 
@@ -34,7 +61,8 @@
             @endif
             <div class="w-100 flex justify-end">
                 <button type="button" style="width: 10rem; height:2rem; margin-right: 15px"
-                            class="text-white bg-gray-800 mt-2 ml-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal-cadastra">Cadastrar Loja</button>
+                    class="text-white bg-gray-800 mt-2 ml-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg"
+                    onclick=imprimir()>Imprimir</button>
             </div>
             <div
                 class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
@@ -42,9 +70,12 @@
                     <table class="table table-flush text-slate-500" datatable id="datatable-search">
                         <thead class="thead-light">
                             <tr>
-                                <th class="centralizar">idLoja</th>
-                                <th class="centralizar">Nome</th>
-                                <th class="centralizar">Ação</th>
+                                <th class="centralizar">Produtos</th>
+                                @foreach ($lojas as $loja)
+                                    <th class="centralizar">-</th>
+                                    {{-- <th class="centralizar">Unidade {{ $loja->Nome }}</th> --}}
+                                @endforeach
+
                             </tr>
                         </thead>
                         <tbody>
@@ -55,10 +86,11 @@
             </div>
         </div>
     </body>
-    @include('lojas.modals.modalEditarLoja')
-    @include('lojas.modals.modalCadastrarLoja')
+
 </x-app-layout>
 <script>
     var lojas = ('<?php echo json_encode($lojas); ?>');
+    var produtosPedido = ('<?php echo json_encode($produtosPedido); ?>');
+    var arrayPedido = ('<?php echo json_encode($arrayPedido); ?>');
 </script>
-<script src="{{ asset('js/lojas/index.js') }}"></script>
+<script src="{{ asset('js/listagemPedidos/index.js') }}"></script>

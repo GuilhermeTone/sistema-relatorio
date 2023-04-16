@@ -26,11 +26,11 @@ $(document).ready(function () {
                     botoes += `
                     <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" style="width:150px; height: 35px;" onclick="editarLoja('`+ row["idLoja"] + `')">
                         <i class="fa fa-trash"></i>
-                            Editar produto
+                            Editar Loja
                     </button><br>
                     <button type="button" class="text-white bg-red-800 mt-2 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm px-5 mb-2 dark:bg-red-800 dark:hover:bg-red-700 dark:focus:ring-red-700 dark:border-red-700 rounded-lg" style="width:150px; height: 35px;" onclick="excluirLoja('`+ row["idLoja"] + `')">
                         <i class="fa fa-trash"></i>
-                            Excluir produto
+                            Excluir Loja
                     </button><br>`
                         ;
 
@@ -71,7 +71,7 @@ function editarLoja(idLoja) {
 
     $.ajax({
         type: `POST`,
-        url: `http://127.0.0.1:8000/listaLoja`,
+        url: `${APP_URL}/listaLoja`,
         data: {
             idLoja: idLoja,
             _token: TOKEN_CSRF,
@@ -120,7 +120,7 @@ function excluirLoja(idLoja){
         if (value) {
             $.ajax({
                 type: `POST`,
-                url: `http://127.0.0.1:8000/excluirLoja`,
+                url: `${APP_URL}/excluirLoja`,
                 data: {
                     idLoja: idLoja,
                     _token: TOKEN_CSRF,

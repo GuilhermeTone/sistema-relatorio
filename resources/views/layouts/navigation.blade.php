@@ -2,11 +2,14 @@
     .centralizar{
         text-align: center !important;
     }
+    .esquerda{
+        text-align: left !important;
+    }
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -28,7 +31,7 @@
                         {{ __('Excluir Usuario') }}
                     </x-nav-link>
                     <x-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
-                        {{ __('Cadastro de Pedido') }}
+                        {{ __('Cadastrar Pedidos') }}
                     </x-nav-link>
                     <x-nav-link :href="route('cadastrarProduto')" :active="request()->routeIs('cadastrarProduto')">
                         {{ __('Cadastrar Produtos') }}
@@ -38,6 +41,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('lojas')" :active="request()->routeIs('lojas')">
                         {{ __('Lojas') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
+                        {{ __('Listagem Pedidos') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -94,6 +100,28 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                        {{ __('Cadastrar Usuario') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('Excluir')">
+                        {{ __('Excluir Usuario') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
+                        {{ __('Cadastrar Pedidos') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('cadastrarProduto')" :active="request()->routeIs('cadastrarProduto')">
+                        {{ __('Cadastrar Produtos') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('editarProduto')" :active="request()->routeIs('editarProduto')">
+                        {{ __('Editar Produtos') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('lojas')" :active="request()->routeIs('lojas')">
+                        {{ __('Lojas') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
+                        {{ __('Listagem Pedidos') }}
+                    </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -142,4 +170,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
 <script>var TOKEN_CSRF = document.querySelector('meta[name="csrf-token"]').getAttribute('content');</script>
+<script> var APP_URL = '{{url('')}}';</script>
