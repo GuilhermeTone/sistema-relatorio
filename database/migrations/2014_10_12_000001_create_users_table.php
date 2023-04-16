@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('idUsuario');
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('Cargo', ['admin', 'gerente', 'secretaria', 'quantificador']);
+            $table->enum('Cargo', ['admin', 'gerente', 'secretaria', 'comprador']);
             $table->unsignedBigInteger('idLoja');
             $table->foreign('idLoja')->references('idLoja')->on('lojas');
             $table->timestamp('email_verified_at')->nullable();

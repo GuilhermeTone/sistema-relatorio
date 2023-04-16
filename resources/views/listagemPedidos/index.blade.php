@@ -9,29 +9,7 @@
     .ocultar-elementos *:not(table) {
         display: none !important;
     }
-    @media print {
-  /* ocultar o cabeçalho e o rodapé */
-  header, footer {
-    display: none;
-  }
-
-  /* remover margens e preenchimentos */
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  /* definir a largura máxima para a tabela */
-  table {
-    max-width: 100%;
-  }
-
-  /* definir o tamanho da fonte e a cor do texto */
-  td, th {
-    font-size: 12px;
-    color: #333;
-  }
-}
+    
 
 </style>
 <x-app-layout>
@@ -72,7 +50,7 @@
                             <tr>
                                 <th class="centralizar">Produtos</th>
                                 @foreach ($lojas as $loja)
-                                    <th class="centralizar">-</th>
+                                    <th class="centralizar">{{ $loja->Nome }}</th>
                                     {{-- <th class="centralizar">Unidade {{ $loja->Nome }}</th> --}}
                                 @endforeach
 

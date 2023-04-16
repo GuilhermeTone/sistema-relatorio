@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class UsuarioController extends Controller
 {
     public function create()
     {
         $data['usuarios'] = User::select('idUsuario', 'name')->get();
-
         return view('usuarios.excluir', $data);
     }
 
@@ -25,8 +25,11 @@ class UsuarioController extends Controller
         $usuario = User::find($idUsuario);
         $usuario->delete();
 
-        $data['usuarios'] = User::select('idUsuario', 'name')->get();
+      
 
-        return view('usuarios.excluir', $data);
+        $data['usuarios'] = User::select('idUsuario', 'name')->get();
+        Session::flash('mensagem', 'Loja inserida com sucesso');
+        return back();
+        // return view('usuarios.excluir', $data);
     }
 }   
