@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Pedidos;
+use App\Models\Lojas;
 use App\Models\pedidosProdutos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -85,5 +86,58 @@ class PedidosController extends Controller
             return back();
         
         }
+    }
+    public function listagemPedidos()
+    {
+        $dataAtual = date("Y-m-d");
+        $tipo = 'Frutas';
+        $idLoja = [];
+        $data = [];
+        $pedidosProdutosModel = new pedidosProdutos();
+
+        $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
+
+         $data['arrayPedido'][] = 'Nome';
+        foreach ($data['lojas'] as $loja) {
+            $data['arrayPedido'][] = "Quantidade_Loja" . $loja->idLoja;
+        }
+
+        return view('listagemPedidos.index', $data);
+    }
+    public function listarPedido(Request $request)
+    {
+        $dataPedido = $request->get('dataPedido');
+        $tipo = $request->get('tipo');
+        $idLoja = [];
+        $response = [];
+        
+        if(!isset($dataPedido)){
+            $dataPedido = date("Y-m-d");
+        }
+
+        
+        $pedidosProdutosModel = new pedidosProdutos();
+
+        $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
+        foreach ($data['lojas'] as $loja) {
+            $idLoja[] = $loja->idLoja;
+        }
+        $data['produtosPedido'] = $pedidosProdutosModel->listagemProdutos($dataPedido, $idLoja, $tipo);
+        // var_dump($data['produtosPedido']);die;
+
+        if (isset($data['produtosPedido'][0])) {
+            $objeto = $data['produtosPedido'][0];
+
+            $chaves = array_keys((array) $objeto);
+
+            $data['arrayPedido'] = $chaves;
+        }
+
+        $response['produtosPedido'] = $data['produtosPedido'];
+        // var_dump($response);die;
+        $response['arrayPedido'] = $data['arrayPedido'];
+        $response['lojas'] = $data['lojas'];
+        
+        return response()->json($response);
     }
 }

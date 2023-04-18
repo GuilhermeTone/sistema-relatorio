@@ -59,7 +59,11 @@ Route::middleware('auth')->group(function () {
     Route::post('excluirLoja', [LojasController::class, 'delete'])->name('excluirLoja');
 
     //LISTAGEM DE PEDIDOS
-    Route::get('ListagemPedidos', [ListagemPedidosController::class, 'index'])->name('ListagemPedidos');
+    Route::get('ListagemPedidos', [PedidosController::class, 'listagemPedidos'])->name('ListagemPedidos');
+    Route::post('listarPedido', [PedidosController::class, 'listarPedido'])->name('listarPedido');
+
+    //EDICAO DE PEDIDOS
+    Route::get('edicaoPedidos', [ListagemPedidosController::class, 'index'])->name('edicaoPedidos');
 });
 
 require __DIR__.'/auth.php';

@@ -17,7 +17,7 @@ class pedidosProdutos extends Model
         'Unidade',
     ];
 
-    public function listagemProdutos($dataPedido, $idLojas)
+    public function listagemProdutos($dataPedido, $idLojas, $tipo)
     {
         $parametros = array();
 
@@ -25,19 +25,28 @@ class pedidosProdutos extends Model
         pd.Nome";
         foreach($idLojas as $idLoja){
             $sql .= "
-            , (SELECT pp" . $idLoja . ".Quantidade FROM pedidos_produtos pp" . $idLoja . "
+            , IFNULL((SELECT SUM(pp" . $idLoja . ".Quantidade) 
+            FROM pedidos_produtos pp" . $idLoja . "
             INNER JOIN pedidos p" . $idLoja . " ON pp" . $idLoja . ".idPedido = p" . $idLoja . ".idPedido
+            INNER JOIN produtos pd" . $idLoja . " ON pp" . $idLoja . ".idProduto = pd" . $idLoja . ".idProduto
             WHERE pp" . $idLoja . ".idProduto = pp.idProduto AND p" . $idLoja . ".idLoja = " . $idLoja . "
-            AND DATE(p" . $idLoja . ".created_at) = '2023-04-16' AND pp" . $idLoja . ".deleted_at IS NULL
-            AND p" . $idLoja . ".deleted_at IS NULL) AS Quantidade_Loja" . $idLoja . "
+            AND DATE(p" . $idLoja . ".created_at) = ? 
+            AND pp" . $idLoja . ".deleted_at IS NULL
+            AND pd" . $idLoja . ".deleted_at IS NULL
+            AND pd" . $idLoja . ".Tipos = ?
+            AND p" . $idLoja . ".deleted_at IS NULL
+            GROUP BY pd" . $idLoja . ".idProduto), 0) AS Quantidade_Loja" . $idLoja;
+            $parametros[] = $dataPedido;
+            $parametros[] = $tipo;
 
-         -- , (SELECT pp" . $idLoja . ".Unidade FROM pedidos_produtos pp" . $idLoja . "
-         --   INNER JOIN pedidos p" . $idLoja . " ON pp" . $idLoja . ".idPedido = p" . $idLoja . ".idPedido
-         --   WHERE pp" . $idLoja . ".idProduto = pp.idProduto AND p" . $idLoja . ".idLoja = " . $idLoja . "
-         --   AND DATE(p" . $idLoja . ".created_at) = '2023-04-16' AND pp" . $idLoja . ".deleted_at IS NULL
-         --   AND p" . $idLoja . ".deleted_at IS NULL) AS Unidade_Loja" . $idLoja;
+            $sql .= " -- , (SELECT pp' . $idLoja . '.Unidade FROM pedidos_produtos pp' . $idLoja . '
+         --   INNER JOIN pedidos p' . $idLoja . ' ON pp' . $idLoja . '.idPedido = p' . $idLoja . '.idPedido
+         --   WHERE pp' . $idLoja . '.idProduto = pp.idProduto AND p' . $idLoja . '.idLoja = ' . $idLoja . '
+         --   AND DATE(p' . $idLoja . '.created_at) = '2023-04-16' AND pp' . $idLoja . '.deleted_at IS NULL
+         --   AND p' . $idLoja . '.deleted_at IS NULL) AS Unidade_Loja' . $idLoja";
 
         }
+       
         $sql .=
         "
         FROM pedidos_produtos pp
@@ -50,7 +59,12 @@ class pedidosProdutos extends Model
         AND  DATE(p.created_at) = ?
         GROUP BY pd.idProduto, pd.Nome, pp.idProduto";
         
+       
         $parametros[] = $dataPedido;
+        // $parametros[] = $tipo;
+
+        // var_dump($parametros);
+        // var_dump($sql);die;
 
         return DB::select($sql, $parametros);
     }

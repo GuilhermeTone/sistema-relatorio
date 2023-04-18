@@ -1,55 +1,93 @@
+
 $(document).ready(function () {
 
-    var colunas = [];
-    
-    $.each(JSON.parse(arrayPedido), function (indexInArray, valueOfElement) {
-        colunas.push({
-            data: valueOfElement,
-            sClass: "esquerda"
-        });
-        });
-        console.log(colunas)
-    var tabela = jQuery('.table').DataTable({
-        "rowCallback": function (row, data, index) {
-            $('td', row).css('border-top', '1px solid #ccc');
-            $('td', row).css('border-left', '1px solid #ccc');
-            $('td', row).css('border-bottom', '1px solid #ccc');
-        },
-        dom: 'Blfrtip',
-
-        buttons: [
-            {
-                extend: "excel",
-                text: "<i class=''></i> Download Excel",
-            },
-        ],
-
-        columns: colunas,
-
-        language: {
-            "lengthMenu": "Exibindo _MENU_ linhas por página",
-            "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ registros.",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "zeroRecords": "Nenhum registro encontrado",
-            "info": "Exibindo página _PAGE_ de _PAGES_",
-            "infoEmpty": "Nenhum registro encontrado",
-            "infoFiltered": "(filtrando  de _MAX_ linhas)",
-            "search": "Filtro geral:",
-            "loadingRecords": "Carregando ...",
-            paginate: {
-                "first": "Primeiro",
-                "last": "Ultimo",
-                "next": "Próximo",
-                "previous": "Anterior"
-            },
-        },
-    });
-    tabela.rows.add(JSON.parse(produtosPedido)).draw()
+    $('#tabela').hide();
 
 
 
 });
+var colunas = [];
+$.each(JSON.parse(arrayPedido), function (indexInArray, valueOfElement) {
+    colunas.push({
+        data: valueOfElement,
+        sClass: "esquerda",
+    });
+});
+var tabela = jQuery('.table').DataTable({
+    
+    "rowCallback": function (row, data, index) {
+        $('td', row).css('border-top', '1px solid #ccc');
+        $('td', row).css('border-left', '1px solid #ccc');
+        $('td', row).css('border-bottom', '1px solid #ccc');
+    },
+    dom: 'Blfrtip',
+
+    buttons: [
+        {
+            extend: "excel",
+            text: "<i class=''></i> Download Excel",
+        },
+    ],
+
+    columns: colunas,
+
+    language: {
+        "lengthMenu": "Exibindo _MENU_ linhas por página",
+        "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ registros.",
+        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+        "zeroRecords": "Nenhum registro encontrado",
+        "info": "Exibindo página _PAGE_ de _PAGES_",
+        "infoEmpty": "Nenhum registro encontrado",
+        "infoFiltered": "(filtrando  de _MAX_ linhas)",
+        "search": "Filtro geral:",
+        "loadingRecords": "Carregando ...",
+        paginate: {
+            "first": "Primeiro",
+            "last": "Ultimo",
+            "next": "Próximo",
+            "previous": "Anterior"
+        },
+    },
+});
+// tabela.rows.add(JSON.parse(produtosPedido)).draw()
+
+function pesquisar() {
+    $('#tabela').hide();
+    var dataPedido = $('#dataPedido').val();
+    var tipo = $('#tipo').val();
+    
+    $.ajax({
+        type: `POST`,
+        url: `${APP_URL}/listarPedido`,
+        data: {
+            dataPedido: dataPedido,
+            tipo: tipo,
+            _token: TOKEN_CSRF,
+        },
+        success: (response) => {
+            if (response) {
+                console.log(response)
+                
+               
+                tabela.clear()
+                tabela.columns(colunas)
+                tabela.rows.add(response.produtosPedido).draw()
+                $('#tabela').show();
+
+            }
+        },
+        error: (error) => {
+            swal({
+                title: "Erro!",
+                text: `Houve um erro interno`,
+                icon: "error",
+                timer: 1500,
+                buttons: false,
+            });
+        }
+    })
+}
 
 function imprimir() {
     // // Cria uma variável que contém a tabela
