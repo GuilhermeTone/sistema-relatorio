@@ -57,7 +57,7 @@
                     </label>
                     <select id="tipo" name="tipo" required
                         class="block w-full px-2 py-2 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="" selected disabled>Selecion o Tipo</option>
+                        <option value="" selected >Todos</option>
                         <option value="Legumes">Legumes</option>
                         <option value="Verduras">Verduras</option>
                         <option value="Frutas">Frutas</option>

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\PedidosController;
+use App\Http\Controllers\PrecosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,7 +64,16 @@ Route::middleware('auth')->group(function () {
     Route::post('listarPedido', [PedidosController::class, 'listarPedido'])->name('listarPedido');
 
     //EDICAO DE PEDIDOS
-    Route::get('edicaoPedidos', [ListagemPedidosController::class, 'index'])->name('edicaoPedidos');
+    Route::get('edicaoPedidos', [PedidosController::class, 'listaEdicao'])->name('edicaoPedidos');
+
+    //CADASTRO PRECOS
+    Route::get('precos', [PrecosController::class, 'index'])->name('precos');
+    Route::post('cadastrarPrecos', [PrecosController::class, 'cadastrarPrecos'])->name('cadastrarPrecos');
+  
+    //EDICAO DE PRECOS
+    Route::get('editarPrecos', [PrecosController::class, 'editarPrecos'])->name('editarPrecos');
+    Route::post('listarinfoPreco', [PrecosController::class, 'listarinfoPreco'])->name('listarinfoPreco');
+    Route::post('editarPrecoProduto', [PrecosController::class, 'editarPrecoProduto'])->name('editarPrecoProduto');
 });
 
 require __DIR__.'/auth.php';

@@ -11,7 +11,7 @@ $(document).ready(function () {
 
         columns: [
             {
-                data: "idProduto",
+                data: "idPrecoProduto",
                 sClass: "text-center"
             },
             {
@@ -20,38 +20,24 @@ $(document).ready(function () {
             },
 
             {
-                data: "Tipos",
+                data: "tipoPreco",
                 sClass: "text-center"
             },
 
             {
-                data: "Padrao",
+                data: "Valor",
                 sClass: "text-center"
             },
-            {
-                data: function (row, type, val, meta) {
-
-                    if (row['Ocultar'] == 'N') {
-                        return 'Não';
-                    } else {
-                        return 'Sim';
-                    }
-                },
-                sClass: "text-center"
-            },
+            
             {
                 data: function (row, type, val, meta) {
 
                     var botoes = '';
                     botoes += `
-                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" style="width:150px; height: 35px;" onclick="editarProduto('`+ row["idProduto"] + `')">
+                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" style="width:150px; height: 35px;" onclick="editarPreco('`+ row["idPrecoProduto"] + `')">
                         <i class="fa fa-trash"></i>
                             Editar produto
-                    </button><br>
-                    <button type="button" class="text-white bg-red-800 mt-2 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm px-5 mb-2 dark:bg-red-800 dark:hover:bg-red-700 dark:focus:ring-red-700 dark:border-red-700 rounded-lg" style="width:150px; height: 35px;" onclick="excluirProduto('`+ row["idProduto"] + `')">
-                        <i class="fa fa-trash"></i>
-                            Excluir produto
-                    </button><br>`
+                    </button>`
                         ;
 
                     return botoes;
@@ -79,32 +65,34 @@ $(document).ready(function () {
             },
         },
     });
-    tabela.rows.add(JSON.parse(produtos)).draw()
+    tabela.rows.add(JSON.parse(precosProdutos)).draw()
 
 
 
 });
 
-function editarProduto(idProduto) {
+function editarPreco(idPrecoProduto) {
 
-    $('#idProduto').val('');
-    $('#Produto').val('');
-    $('#tipo').val('');
-    $('#unidade').val('');
+    $('#valorProduto').val('');
+    $('#idPrecoProduto').val('');
+    $('#nomeProduto').empty();
+    $('#tipoProduto').empty();
+
+    $('#valorProduto').mask('#.##0,00', { reverse: true });
 
     $.ajax({
         type: `POST`,
-        url: `${APP_URL}/listarinfoProduto`,
+        url: `${APP_URL}/listarinfoPreco`,
         data: {
-            idProduto: idProduto,
+            idPrecoProduto: idPrecoProduto,
             _token: TOKEN_CSRF,
         },
         success: (response) => {
-            $('#idProduto').val(idProduto);
-            $('#Produto').val(response[0].Nome);
-            $('#tipo').val(response[0].Tipos);
-            $('#unidade').val(response[0].Padrao);
-            $('#ocultar').val(response[0].Ocultar);
+            $('#idPrecoProduto').val(response[0].idPrecoProduto);
+            $('#valorProduto').val(response[0].Valor);
+            $('#nomeProduto').text(response[0].Nome);
+            $('#tipoProduto').text(response[0].tipoPreco);
+            
         },
         error: (error) => {
             swal({
@@ -118,14 +106,13 @@ function editarProduto(idProduto) {
     })
 
 }
-function desabilita() {
-    $('#btnsubmit').prop('disabled', true);
-}
-function excluirProduto(idProduto) {
-
+// function desabilita() {
+//     $('#btnsubmit').prop('disabled', true);
+// }
+function editarPrecoProduto() {
     swal({
         Title: "Atenção!",
-        text: "Deseja realmente excluir o Produto",
+        text: "Deseja realmente editar o preço deste produto?",
         closeOnClickOutside: false,
         closeOnEsc: false,
         buttons: {
@@ -147,20 +134,21 @@ function excluirProduto(idProduto) {
         if (value) {
             $.ajax({
                 type: `POST`,
-                url: `${APP_URL}/excluirProduto`,
+                url: `${APP_URL}/editarPrecoProduto`,
                 data: {
-                    idProduto: idProduto,
+                    idPrecoProduto: $('#idPrecoProduto').val(),
+                    ValorProduto: $('#valorProduto').val(),
                     _token: TOKEN_CSRF,
                 },
                 success: (response) => {
                     if (response) {
                         swal({
-                            text: "Sucesso, Produto deletado",
+                            text: "Sucesso, Preço do produto editado",
                             icon: "success",
                             buttons: false,
                             timer: 2000
                         })
-                        location.reload();
+                        location.reload()
                     } else {
 
                         swal({
@@ -168,7 +156,7 @@ function excluirProduto(idProduto) {
                             icon: "error",
                             buttons: false,
                             timer: 2000
-                            
+
                         });
                     }
 
@@ -188,5 +176,4 @@ function excluirProduto(idProduto) {
             swal.close();
         }
     });
-
 }

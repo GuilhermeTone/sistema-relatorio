@@ -115,6 +115,10 @@ class PedidosController extends Controller
             $dataPedido = date("Y-m-d");
         }
 
+        if (!isset($tipo)) {
+            $tipo = 'Frutas, Legumes, Verduras';
+        }
+
         
         $pedidosProdutosModel = new pedidosProdutos();
 
@@ -123,21 +127,45 @@ class PedidosController extends Controller
             $idLoja[] = $loja->idLoja;
         }
         $data['produtosPedido'] = $pedidosProdutosModel->listagemProdutos($dataPedido, $idLoja, $tipo);
+
         // var_dump($data['produtosPedido']);die;
 
-        if (isset($data['produtosPedido'][0])) {
-            $objeto = $data['produtosPedido'][0];
+        if($data['produtosPedido']){
+            if (isset($data['produtosPedido'][0])) {
+                $objeto = $data['produtosPedido'][0];
 
-            $chaves = array_keys((array) $objeto);
+                $chaves = array_keys((array) $objeto);
 
-            $data['arrayPedido'] = $chaves;
+                $data['arrayPedido'] = $chaves;
+            }
+
+            $response['produtosPedido'] = $data['produtosPedido'];
+            // var_dump($response);die;
+            $response['arrayPedido'] = $data['arrayPedido'];
+            $response['lojas'] = $data['lojas'];
+
+            return response()->json($response);
+        }else{
+            return response()->json(['erro' => 'semPedido']);
         }
+        // var_dump($data['produtosPedido']);die;
 
-        $response['produtosPedido'] = $data['produtosPedido'];
-        // var_dump($response);die;
-        $response['arrayPedido'] = $data['arrayPedido'];
-        $response['lojas'] = $data['lojas'];
         
-        return response()->json($response);
+    }
+    public function listaEdicao()
+    {
+        $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
+        // foreach ($data['lojas'] as $loja) {
+        //     $lojas[] = $loja->idLoja;
+        // }
+        return view('edicaoPedidos.index', $data);
+    }
+    public function tabelaPrecos()
+    {
+        $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
+        // foreach ($data['lojas'] as $loja) {
+        //     $lojas[] = $loja->idLoja;
+        // }
+        return view('tabelaPrecos.index', $data);
     }
 }

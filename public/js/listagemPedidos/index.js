@@ -66,15 +66,22 @@ function pesquisar() {
             _token: TOKEN_CSRF,
         },
         success: (response) => {
-            if (response) {
+            console.log(response);
+            if (response.erro == 'semPedido') {
+                swal({
+                    title: "Erro!",
+                    text: `Não há pedidos no dia selecionado`,
+                    icon: "error",
+                    timer: 1500,
+                    buttons: false,
+                });
+
+            }else{
                 console.log(response)
-                
-               
                 tabela.clear()
                 tabela.columns(colunas)
                 tabela.rows.add(response.produtosPedido).draw()
                 $('#tabela').show();
-
             }
         },
         error: (error) => {

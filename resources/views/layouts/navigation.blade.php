@@ -43,7 +43,16 @@
                         {{ __('Lojas') }}
                     </x-nav-link>
                     <x-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
-                        {{ __('Listagem Pedidos') }}
+                        {{ __('Listagem de Pedidos') }}
+                    </x-nav-link>
+                     <x-nav-link :href="route('edicaoPedidos')" :active="request()->routeIs('edicaoPedidos')">
+                        {{ __('Edição de Pedidos') }}
+                    </x-nav-link>
+                     <x-nav-link :href="route('precos')" :active="request()->routeIs('precos')">
+                        {{ __('Cadastro de Precos') }}
+                    </x-nav-link>
+                     <x-nav-link :href="route('editarPrecos')" :active="request()->routeIs('editarPrecos')">
+                        {{ __('Editar Preços') }}
                     </x-nav-link>
                 </div>
             </div>

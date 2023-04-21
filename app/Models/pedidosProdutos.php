@@ -32,12 +32,16 @@ class pedidosProdutos extends Model
             WHERE pp" . $idLoja . ".idProduto = pp.idProduto AND p" . $idLoja . ".idLoja = " . $idLoja . "
             AND DATE(p" . $idLoja . ".created_at) = ? 
             AND pp" . $idLoja . ".deleted_at IS NULL
-            AND pd" . $idLoja . ".deleted_at IS NULL
-            AND pd" . $idLoja . ".Tipos = ?
-            AND p" . $idLoja . ".deleted_at IS NULL
-            GROUP BY pd" . $idLoja . ".idProduto), 0) AS Quantidade_Loja" . $idLoja;
+            AND pd" . $idLoja . ".deleted_at IS NULL";
             $parametros[] = $dataPedido;
-            $parametros[] = $tipo;
+            if($tipo != 'Frutas, Legumes, Verduras'){
+                $sql .= " AND pd" . $idLoja . ".Tipos = ?";
+                $parametros[] = $tipo;
+            }
+            $sql .= " AND p" . $idLoja . ".deleted_at IS NULL
+            GROUP BY pd" . $idLoja . ".idProduto), 0) AS Quantidade_Loja" . $idLoja;
+            
+           
 
             $sql .= " -- , (SELECT pp' . $idLoja . '.Unidade FROM pedidos_produtos pp' . $idLoja . '
          --   INNER JOIN pedidos p' . $idLoja . ' ON pp' . $idLoja . '.idPedido = p' . $idLoja . '.idPedido
