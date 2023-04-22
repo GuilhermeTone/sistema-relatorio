@@ -62,13 +62,21 @@ class PrecosController extends Controller
     }
     public function editarPrecos()
     {
-        $Precoprodutos = PrecosProdutos::select('precos_produtos.idPrecoProduto', 'produtos.Nome', 'precos_produtos.tipoPreco', 'precos_produtos.Valor')
+        $Precoprodutos = PrecosProdutos::select('precos_produtos.idPrecoProduto', 'produtos.Nome', 'produtos.Tipos', 'precos_produtos.tipoPreco', 'precos_produtos.Valor')
         ->join('produtos', 'produtos.idProduto', '=', 'precos_produtos.idProduto')
         ->where('precos_produtos.deleted_at', NUll)->get();
 
         $data['precosProdutos'] = $Precoprodutos;
 
         return view('precos.editarPrecos', $data);
+    }
+    public function listarEditarPrecos()
+    {
+        $Precoprodutos = PrecosProdutos::select('precos_produtos.idPrecoProduto', 'produtos.Nome', 'produtos.Tipos', 'precos_produtos.tipoPreco', 'precos_produtos.Valor')
+        ->join('produtos', 'produtos.idProduto', '=', 'precos_produtos.idProduto')
+        ->where('precos_produtos.deleted_at', NUll)->get();
+
+        return response()->json($Precoprodutos);
     }
     public function listarinfoPreco(Request $request)
     {
@@ -87,6 +95,7 @@ class PrecosController extends Controller
     {
         $idPrecoProduto = $request->get('idPrecoProduto');
         $ValorProduto = $request->get('ValorProduto');
+        $ValorProduto = str_replace(',', '.', $ValorProduto);
 
         $idPrecoProduto = PrecosProdutos::where('idPrecoProduto', $idPrecoProduto)->update(['Valor' => $ValorProduto]);
 

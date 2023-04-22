@@ -39,6 +39,7 @@
                                 <th class="centralizar">idProdutoPreço</th>
                                 <th class="centralizar">Nome</th>
                                 <th class="centralizar">Tipo</th>
+                                <th class="centralizar">Unidade</th>
                                 <th class="centralizar">Valor</th>
                                 <th class="centralizar">Ações</th>
                             </tr>

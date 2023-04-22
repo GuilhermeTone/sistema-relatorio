@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\ListagemPedidosController;
 use App\Http\Controllers\LojasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\PedidosController;
+use App\Http\Controllers\PedidosConfirmadosController;
 use App\Http\Controllers\PrecosController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,9 +63,13 @@ Route::middleware('auth')->group(function () {
     Route::get('ListagemPedidos', [PedidosController::class, 'listagemPedidos'])->name('ListagemPedidos');
     Route::post('listarPedido', [PedidosController::class, 'listarPedido'])->name('listarPedido');
 
-    //EDICAO DE PEDIDOS
-    Route::get('edicaoPedidos', [PedidosController::class, 'listaEdicao'])->name('edicaoPedidos');
-
+    //PEDIDOS POS COMPRA
+    Route::get('pedidosPosCompra', [PedidosController::class, 'pedidosPosCompra'])->name('pedidosPosCompra');
+    Route::post('cadastrarPedidosPosCompra', [PedidosController::class, 'cadastrarPedidosPosCompra'])->name('cadastrarPedidosPosCompra');
+    Route::post('inserirValores', [PedidosController::class, 'inserirValores'])->name('inserirValores');
+    route::post('listarPedidoPosCompra', [PedidosController::class, 'listarPedidoPosCompra'])->name('listarPedidoPosCompra');
+    route::post('inserirValores', [PedidosController::class, 'inserirValores'])->name('inserirValores');
+    
     //CADASTRO PRECOS
     Route::get('precos', [PrecosController::class, 'index'])->name('precos');
     Route::post('cadastrarPrecos', [PrecosController::class, 'cadastrarPrecos'])->name('cadastrarPrecos');
@@ -73,7 +77,12 @@ Route::middleware('auth')->group(function () {
     //EDICAO DE PRECOS
     Route::get('editarPrecos', [PrecosController::class, 'editarPrecos'])->name('editarPrecos');
     Route::post('listarinfoPreco', [PrecosController::class, 'listarinfoPreco'])->name('listarinfoPreco');
+    Route::post('listarEditarPrecos', [PrecosController::class, 'listarEditarPrecos'])->name('listarEditarPrecos');
     Route::post('editarPrecoProduto', [PrecosController::class, 'editarPrecoProduto'])->name('editarPrecoProduto');
+
+    //LISTAGEM PEDIDOS CONFIRMADOS
+    Route::get('pedidosConfirmados', [PedidosConfirmadosController::class, 'index'])->name('pedidosConfirmados');
+    Route::post('listarPedidosConfirmados', [PedidosConfirmadosController::class, 'listarPedidosConfirmados'])->name('listarPedidosConfirmados');
 });
 
 require __DIR__.'/auth.php';

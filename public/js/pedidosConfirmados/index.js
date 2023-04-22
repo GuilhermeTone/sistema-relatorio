@@ -6,15 +6,8 @@ $(document).ready(function () {
 
 
 });
-var colunas = [];
-$.each(JSON.parse(arrayPedido), function (indexInArray, valueOfElement) {
-    colunas.push({
-        data: valueOfElement,
-        sClass: "esquerda",
-    });
-});
 var tabela = jQuery('.table').DataTable({
-    
+
     "rowCallback": function (row, data, index) {
         $('td', row).css('border-top', '1px solid #ccc');
         $('td', row).css('border-left', '1px solid #ccc');
@@ -31,7 +24,30 @@ var tabela = jQuery('.table').DataTable({
         },
     ],
 
-    columns: colunas,
+    columns: [
+        {
+
+            data: "Nome",
+            sClass: "text-center"
+
+        },
+        {
+            data: "Quantidade",
+            sClass: "text-center"
+        },
+        {
+            data: "Unidade",
+            sClass: "text-center"
+        },
+        {
+            data: "NomeLoja",
+            sClass: "text-center"
+        },
+        {
+            data: "Valor",
+            sClass: "text-center",
+        },
+    ],
 
     language: {
         "lengthMenu": "Exibindo _MENU_ linhas por página",
@@ -57,14 +73,12 @@ var tabela = jQuery('.table').DataTable({
 function pesquisar() {
     $('#tabela').hide();
     var dataPedido = $('#dataPedido').val();
-    var tipo = $('#tipo').val();
-    
+
     $.ajax({
         type: `POST`,
-        url: `${APP_URL}/listarPedido`,
+        url: `${APP_URL}/listarPedidosConfirmados`,
         data: {
             dataPedido: dataPedido,
-            tipo: tipo,
             _token: TOKEN_CSRF,
         },
         success: (response) => {
@@ -72,18 +86,17 @@ function pesquisar() {
             if (response.erro == 'semPedido') {
                 swal({
                     title: "Erro!",
-                    text: `Não há pedidos no dia selecionado`,
+                    text: `Não há pedidos não confirmados no dia selecionado`,
                     icon: "error",
                     timer: 1500,
                     buttons: false,
                 });
 
-            }else{
-                console.log(response)
-                tabela.clear()
-                tabela.columns(colunas)
-                tabela.rows.add(response.produtosPedido).draw()
+            } else {
+                tabela.clear();
+                tabela.rows.add(response).draw()
                 $('#tabela').show();
+
             }
         },
         error: (error) => {

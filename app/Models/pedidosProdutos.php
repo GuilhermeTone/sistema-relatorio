@@ -72,4 +72,34 @@ class pedidosProdutos extends Model
 
         return DB::select($sql, $parametros);
     }
+    public function listagemProdutosPosCompra($dataPedido, $tipo)
+    {
+        $parametros = array();
+
+        $sql =
+        "SELECT
+        pd.Nome
+        , pp.idPedido
+        , pp.idProduto
+        ,pp.Quantidade
+      	, pp.Unidade
+      	,l.Nome AS NomeLoja
+      	,pp.Valor
+        FROM pedidos_produtos pp
+        INNER JOIN produtos pd ON pp.idProduto = pd.idProduto
+        INNER JOIN pedidos p ON pp.idPedido = p.idPedido
+        INNER JOIN lojas l ON p.idLoja = l.idLoja
+        WHERE pp.deleted_at IS NULL
+        AND pd.deleted_at IS NULL
+        AND p.deleted_at IS NULL
+        AND DATE(p.created_at) = ?
+        AND p.Status = 'NaoConfirmado'";
+        $parametros[] = $dataPedido;
+        if ($tipo != 'Frutas, Legumes, Verduras') {
+            $sql .= " AND pd.Tipos = ?";
+            $parametros[] = $tipo;
+        }
+
+        return DB::select($sql, $parametros);
+    }
 }

@@ -40,7 +40,7 @@
             
             <!-- Modal footer -->
             <div class="flex space-x-2 items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button type="submit" onclick="editarPrecoProduto()" style="width: 10rem; height:2rem; margin-left: 15px" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 mb-2 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg">Salvar</button>
+                <button type="submit" id="salvarPreco" onclick="editarPrecoProduto()" style="width: 10rem; height:2rem; margin-left: 15px" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 mb-2 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg">Salvar</button>
             </div>
             {{-- </form> --}}
         </div>

@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pedidos_produtos', function (Blueprint $table) {
+        Schema::create('pedidos_produtos_pos_compras', function (Blueprint $table) {
             $table->id('idPedidoProduto');
             $table->unsignedBigInteger('idProduto');
             $table->foreign('idProduto')->references('idProduto')->on('produtos');
             $table->unsignedBigInteger('idPedido');
             $table->foreign('idPedido')->references('idPedido')->on('pedidos');
             $table->string('Quantidade');
+            $table->enum('Unidade', ['Caixa', 'Unidade', 'Saco', 'Maco', 'Kilo']);
             $table->float('Valor')->default(0);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);

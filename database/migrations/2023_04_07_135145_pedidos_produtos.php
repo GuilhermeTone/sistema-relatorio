@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idPedido');
             $table->foreign('idPedido')->references('idPedido')->on('pedidos');
             $table->string('Quantidade');
+            $table->enum('Unidade', ['Caixa', 'Unidade', 'Saco', 'Maco', 'Kilo']);
             $table->float('Valor')->default(0);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);

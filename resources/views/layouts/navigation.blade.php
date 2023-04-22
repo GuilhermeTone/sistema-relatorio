@@ -1,3 +1,4 @@
+<?php use Illuminate\Support\Facades\Auth; ?>
 <style>
     .centralizar{
         text-align: center !important;
@@ -24,6 +25,7 @@
                     {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link> --}}
+                    @if(Auth::user()->Cargo == 'admin')
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Cadastrar Usuario') }}
                     </x-nav-link>
@@ -45,8 +47,8 @@
                     <x-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
                         {{ __('Listagem de Pedidos') }}
                     </x-nav-link>
-                     <x-nav-link :href="route('edicaoPedidos')" :active="request()->routeIs('edicaoPedidos')">
-                        {{ __('Edição de Pedidos') }}
+                    <x-nav-link :href="route('pedidosPosCompra')" :active="request()->routeIs('pedidosPosCompra')">
+                        {{ __('Pedidos Pós Compra') }}
                     </x-nav-link>
                      <x-nav-link :href="route('precos')" :active="request()->routeIs('precos')">
                         {{ __('Cadastro de Precos') }}
@@ -54,6 +56,34 @@
                      <x-nav-link :href="route('editarPrecos')" :active="request()->routeIs('editarPrecos')">
                         {{ __('Editar Preços') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('pedidosConfirmados')" :active="request()->routeIs('pedidosConfirmados')">
+                        {{ __('Pedidos Confirmados') }}
+                    </x-nav-link>
+                    @endif
+                    @if(Auth::user()->Cargo == 'gerente')
+                        <x-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
+                            {{ __('Cadastrar Pedidos') }}
+                        </x-nav-link>
+                    @endif
+                    @if(Auth::user()->Cargo == 'comprador')
+                        <x-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
+                            {{ __('Listagem de Pedidos') }}
+                        </x-nav-link>
+                    @endif
+                    @if(Auth::user()->Cargo == 'secretaria')
+                         <x-nav-link :href="route('pedidosPosCompra')" :active="request()->routeIs('pedidosPosCompra')">
+                        {{ __('Pedidos Pós Compra') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('precos')" :active="request()->routeIs('precos')">
+                            {{ __('Cadastro de Precos') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('editarPrecos')" :active="request()->routeIs('editarPrecos')">
+                            {{ __('Editar Preços') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('pedidosConfirmados')" :active="request()->routeIs('pedidosConfirmados')">
+                            {{ __('Pedidos Confirmados') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -106,11 +136,71 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            {{-- <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
 
-            <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
+            @if(Auth::user()->Cargo == 'admin')
+                    <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                        {{ __('Cadastrar Usuario') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('Excluir')">
+                        {{ __('Excluir Usuario') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
+                        {{ __('Cadastrar Pedidos') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('cadastrarProduto')" :active="request()->routeIs('cadastrarProduto')">
+                        {{ __('Cadastrar Produtos') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('editarProduto')" :active="request()->routeIs('editarProduto')">
+                        {{ __('Editar Produtos') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('lojas')" :active="request()->routeIs('lojas')">
+                        {{ __('Lojas') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
+                        {{ __('Listagem de Pedidos') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('pedidosPosCompra')" :active="request()->routeIs('pedidosPosCompra')">
+                        {{ __('Pedidos Pós Compra') }}
+                    </x-responsive-nav-link>
+                     <x-responsive-nav-link :href="route('precos')" :active="request()->routeIs('precos')">
+                        {{ __('Cadastro de Precos') }}
+                    </x-responsive-nav-link>
+                     <x-responsive-nav-link :href="route('editarPrecos')" :active="request()->routeIs('editarPrecos')">
+                        {{ __('Editar Preços') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('pedidosConfirmados')" :active="request()->routeIs('pedidosConfirmados')">
+                        {{ __('Pedidos Confirmados') }}
+                    </x-responsive-nav-link>
+                    @endif
+                    @if(Auth::user()->Cargo == 'gerente')
+                        <x-responsive-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
+                            {{ __('Cadastrar Pedidos') }}
+                        </x-responsive-nav-link>
+                    @endif
+                    @if(Auth::user()->Cargo == 'comprador')
+                        <x-responsive-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
+                            {{ __('Listagem de Pedidos') }}
+                        </x-responsive-nav-link>
+                    @endif
+                    @if(Auth::user()->Cargo == 'secretaria')
+                         <x-responsive-nav-link :href="route('pedidosPosCompra')" :active="request()->routeIs('pedidosPosCompra')">
+                        {{ __('Pedidos Pós Compra') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('precos')" :active="request()->routeIs('precos')">
+                            {{ __('Cadastro de Precos') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('editarPrecos')" :active="request()->routeIs('editarPrecos')">
+                            {{ __('Editar Preços') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('pedidosConfirmados')" :active="request()->routeIs('pedidosConfirmados')">
+                            {{ __('Pedidos Confirmados') }}
+                        </x-responsive-nav-link>
+                    @endif
+
+            {{-- <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Cadastrar Usuario') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('Excluir')">
@@ -131,6 +221,9 @@
                     <x-responsive-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
                         {{ __('Listagem Pedidos') }}
                     </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('pedidosConfirmados')" :active="request()->routeIs('pedidosConfirmados')">
+                        {{ __('Pedidos Confirmados') }}
+                    </x-responsive-nav-link> --}}
         </div>
 
         <!-- Responsive Settings Options -->
