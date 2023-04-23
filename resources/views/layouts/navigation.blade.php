@@ -179,6 +179,9 @@
                         <x-responsive-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
                             {{ __('Cadastrar Pedidos') }}
                         </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('pedidosConfirmados')" :active="request()->routeIs('pedidosConfirmados')">
+                            {{ __('Pedidos Confirmados') }}
+                        </x-responsive-nav-link>
                     @endif
                     @if(Auth::user()->Cargo == 'comprador')
                         <x-responsive-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('idLoja')->references('idLoja')->on('lojas');
             $table->unsignedBigInteger('idUsuario');
             $table->foreign('idUsuario')->references('idUsuario')->on('users');
-            $table->enum('Status', ['Confirmado', 'NaoConfirmado']);
+            $table->enum('Status', ['NaoConfirmado', 'Confirmado']);
             $table->float('valorTotal')->default(0);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
