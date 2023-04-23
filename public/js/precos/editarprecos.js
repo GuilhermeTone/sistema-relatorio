@@ -41,8 +41,7 @@ var tabela = jQuery('.table').DataTable({
 
                 var botoes = '';
                 botoes += `
-                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" style="width:150px; height: 35px;" onclick="editarPreco('`+ row["idPrecoProduto"] + `')">
-                        <i class="fa fa-trash"></i>
+                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg abrirmodal" style="width:150px; height: 35px;" onclick="editarPreco('`+ row["idPrecoProduto"] + `')">
                             Editar produto
                     </button>`
                     ;
@@ -83,6 +82,7 @@ $(document).ready(function () {
 
 function editarPreco(idPrecoProduto) {
 
+    $('#default-modal').removeClass('hidden');
     
     $('#valorProduto').val('');
     $('#idPrecoProduto').val('');
@@ -163,9 +163,8 @@ function editarPrecoProduto() {
                             buttons: false,
                             timer: 2000
                         })
-                        $('#fecharModal').trigger('click');
-                        $('#default-modal').modal('hide');
                         pesquisar();
+                        $('#default-modal').addClass('hidden');
                         // location.reload()
                     } else {
 
@@ -222,3 +221,6 @@ function pesquisar() {
 function desabilita() {
     $('#btnsubmitproduto').prop('disabled', true);
 }
+$('#fecharModal').click(function () {
+    $('#default-modal').addClass('hidden');
+});
