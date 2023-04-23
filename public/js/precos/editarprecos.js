@@ -163,6 +163,8 @@ function editarPrecoProduto() {
                             buttons: false,
                             timer: 2000
                         })
+                        $('#fecharModal').trigger('click');
+                        $('#default-modal').modal('hide');
                         pesquisar();
                         // location.reload()
                     } else {
