@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\PedidosProdutosPosCompras;
 
@@ -23,7 +24,9 @@ class PedidosConfirmadosController extends Controller
             $dataPedido = date("Y-m-d");
         }
 
-        $response = $pedidosConfirmadosModel->listarPedidosConfirmados($dataPedido);
+        $idLoja = Auth::user()->idLoja;
+
+        $response = $pedidosConfirmadosModel->listarPedidosConfirmados($dataPedido, $idLoja);
         
 
         // var_dump($response);die;

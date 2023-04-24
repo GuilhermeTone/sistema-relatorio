@@ -18,7 +18,7 @@ class PedidosProdutosPosCompras extends Model
         'Valor'
     ];
 
-    public function listarPedidosConfirmados($dataPedido)
+    public function listarPedidosConfirmados($dataPedido, $idLoja)
     {
         $parametros = array();
 
@@ -38,8 +38,10 @@ class PedidosProdutosPosCompras extends Model
         WHERE pp.deleted_at IS NULL
         AND pd.deleted_at IS NULL
         AND p.deleted_at IS NULL
+        AND p.idLoja = ?
         AND DATE(p.created_at) = ?
         AND p.Status = 'Confirmado'";
+        $parametros[] = $idLoja;
         $parametros[] = $dataPedido;
 
         return DB::select($sql, $parametros);
