@@ -42,7 +42,7 @@
                     onclick=imprimir()>Imprimir</button>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6 flex justify-center pb-5">
-                <div class=" md:w-4/12 px-3 mb-6 md:mb-0">
+                <div class=" md:w-2/12 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-first-name">
                         Data do pedido
@@ -50,7 +50,7 @@
                     <input id="dataPedido" type="date" name="dataPedido"
                         class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
-                <div class=" md:w-4/12 px-3 mb-6 md:mb-0 mt-2">
+                <div class=" md:w-2/12 px-3 mb-6 md:mb-0 mt-2">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-first-name"></label>
                     <button type="button" style="width: 10rem; height:2.5rem; margin-right: 15px"
