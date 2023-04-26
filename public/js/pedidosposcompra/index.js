@@ -53,7 +53,7 @@ var tabela = jQuery('.table').DataTable({
 
                                     valor = valor * Quantidade;
                                     
-                                    $(rowNode).find('.Valor').val(valor);
+                                    $(rowNode).find('.Valor').val(valor.toFixed(2));
                                 }
                             });
                         }
@@ -81,7 +81,7 @@ var tabela = jQuery('.table').DataTable({
                     <input type="hidden" id="idProduto[` + meta.row + `]" name="idProduto[` + meta.row + `]" value="` + row['idProduto'] + `">
                     <input type="hidden" id="idPedido[` + meta.row + `]" name="idPedido[` + meta.row + `]" value="` + row['idPedido'] + `">
                     <input type="hidden" id="Unidade[` + meta.row + `]" name="Unidade[` + meta.row + `]" value="` + row['Unidade'] + `">
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full Quantidade" id="Quantidade[` + meta.row + `]" type="text" name="Quantidade[` + meta.row + `]" maxlength="6" value="` + row['Quantidade'] + `">
+                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full Quantidade" id="Quantidade[` + meta.row + `]" type="text" name="Quantidade[` + meta.row + `]" maxlength="6" value="` + row['Quantidade'] + `" required>
                     `
                     ;
 
@@ -102,7 +102,7 @@ var tabela = jQuery('.table').DataTable({
 
                 var input = '';
                 input += `
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full Valor" id="Valor[` + meta.row + `]" type="text" name="Valor[` + meta.row + `]" maxlength="6" value="` + row['Valor'] + `">
+                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full Valor" id="Valor[` + meta.row + `]" type="text" name="Valor[` + meta.row + `]" maxlength="6" value="" required>
                     `
                     ;
 
@@ -208,3 +208,40 @@ function imprimir() {
         style: 'table {border-collapse: collapse; width: 100%;} th, td {border: 1px solid black; padding: 0px; font-size:12px; text-align:center}',
     });
 }
+$('#formposcompra').on('submit', function (event) {
+    event.preventDefault();
+    var form = $('#formposcompra').get(0);
+    console.log(form)
+    if (form.checkValidity()) {
+        swal({
+            Title: "Atenção!",
+            text: "Deseja realmente confirmar o pedido",
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            buttons: {
+                cancel: {
+                    text: "Não!",
+                    value: false,
+                    visible: true,
+                    closeModal: true
+                },
+                confirm: {
+                    text: "Sim!",
+                    value: true,
+                    visible: true,
+                    className: "btn-primary",
+                    closeModal: true
+                }
+            }
+        }).then((value) => {
+            if (value) {
+                $('#formposcompra').submit();
+            }
+        });
+
+    } else {
+        // Se o formulário for inválido, acione a validação
+        form.reportValidity();
+    }
+
+});

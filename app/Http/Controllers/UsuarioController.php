@@ -16,6 +16,7 @@ class UsuarioController extends Controller
     public function create()
     {
         $data['usuarios'] = User::select('idUsuario', 'name')->get();
+        $data['mensagem'] = session('mensagem');
         return view('usuarios.excluir', $data);
     }
 
@@ -28,7 +29,7 @@ class UsuarioController extends Controller
       
 
         $data['usuarios'] = User::select('idUsuario', 'name')->get();
-        Session::flash('mensagem', 'Loja inserida com sucesso');
+        Session::flash('mensagem', 'Usuario deletado com sucesso');
         return back();
         // return view('usuarios.excluir', $data);
     }

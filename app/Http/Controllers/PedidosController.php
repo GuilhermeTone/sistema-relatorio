@@ -16,6 +16,7 @@ class PedidosController extends Controller
 {
     public function index()
     {
+        $data['Loja'] = Lojas::select('Nome')->where(['idLoja' => Auth::user()->idLoja])->get();
         $data['Frutas'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Frutas', 'Ocultar' => 'N', 'deleted_at' => NULL])->orderBy('Nome', 'asc')->get();
         $data['Legumes'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Legumes', 'Ocultar' => 'N', 'deleted_at' => NULL])->orderBy('Nome', 'asc')->get();
         $data['Verduras'] = Produto::select('idProduto', 'Nome', 'Padrao')->where(['Tipos' => 'Verduras', 'Ocultar' => 'N', 'deleted_at' => NULL])->orderBy('Nome', 'asc')->get();
@@ -41,7 +42,9 @@ class PedidosController extends Controller
 
         $erros = [];
 
-        if (!$erros) {
+        
+
+       
 
             $idPedido = Pedidos::create([
                 'idLoja' => Auth::user()->idLoja,
@@ -83,9 +86,16 @@ class PedidosController extends Controller
                     ]);
                 }
             }
+            // var_dump($idPedidoProduto);die;
+            if(!isset($idPedidoProduto)){
+                $teste = Pedidos::where('idPedido', $idPedido->id)->delete();
+                Session::flash('mensagem', 'Nenhum produto foi inserido, pedido excluido, nada foi feito');
+                return back();
+
+            }
             Session::flash('mensagem', 'Pedido inserido com sucesso');
             return back();
-        }
+        
     }
     public function listagemPedidos()
     {
@@ -222,7 +232,7 @@ class PedidosController extends Controller
                 'idPedido' => $idPedidos[$index],
                 'Quantidade' => $Quantidades[$index],
                 'Unidade' => $Unidades[$index],
-                'Valor' => $Valores[$index],
+                'Valor' => str_replace(',', '.', $Valores[$index]),
             ]);
 
             Pedidos::where('idPedido', $idPedidos[$index])->update(['Status' => 'Confirmado']);

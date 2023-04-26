@@ -1,8 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Cadastrar Pedidos') }}
-        </h2>
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Cadastrar Pedidos') }}
+            </h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{"Hoje é " . date("d/m/Y")}}
+            </h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{$Loja[0]->Nome}}
+            </h2>
+        </div>
     </x-slot>
 
 
@@ -20,11 +28,11 @@
                         </svg>
                         <span class="sr-only">Info</span>
                         <div>
-                            <span class="font-medium">Sucesso,</span> Pedido cadastrado com sucesso
+                            {{$mensagem}}
                         </div>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('cadastrarPedido') }}" onsubmit="desabilita()">
+                <form method="POST" id="formPedido" action="{{ route('cadastrarPedido') }}">
                     @csrf
                     <div class="grid grid-cols-3 gap-4 mt-2 ">
                         <div class="grid-rows-1 justify-center Frutas">
@@ -48,7 +56,7 @@
                                     </div>
                                     <div class="flex justify-center">
                                         <div class="flex justify-center">
-                                            <x-text-input id="quantidadeFrutas[{{$key}}]" class="block mt-1 w-full quantidadeFrutas" type="text" name="quantidadeFrutas[{{$key}}]" />
+                                            <x-text-input id="quantidadeFrutas[{{$key}}]" class="block mt-1 w-full quantidadeFrutas" tabindex="{{(int)$key + 1}}" type="text" name="quantidadeFrutas[{{$key}}]" />
                                         </div>
                                     </div>
                                     <div class="flex justify-center">
@@ -86,7 +94,7 @@
                                     </div>
                                     <div class="flex justify-center">
                                         <div class="flex justify-center">
-                                            <x-text-input id="quantidadeLegumes[{{$key}}]" class="block mt-1 w-full quantidadeLegumes" type="text" name="quantidadeLegumes[{{$key}}]" />
+                                            <x-text-input id="quantidadeLegumes[{{$key}}]" class="block mt-1 w-full quantidadeLegumes" tabindex="{{(int)$key + 10000}}" type="text" name="quantidadeLegumes[{{$key}}]" />
                                         </div>
                                     </div>
                                     <div class="flex justify-center">
@@ -124,7 +132,7 @@
                                     </div>
                                     <div class="flex justify-center">
                                         <div class="flex justify-center">
-                                            <x-text-input id="quantidadeVerduras[{{$key}}]" class="block mt-1 w-full quantidadeVerduras" type="text" name="quantidadeVerduras[{{$key}}]" />
+                                            <x-text-input id="quantidadeVerduras[{{$key}}]" class="block mt-1 w-full quantidadeVerduras" tabindex="{{(int)$key + 20000}}" type="text" name="quantidadeVerduras[{{$key}}]" />
                                         </div>
                                     </div>
                                     <div class="flex justify-center">
@@ -142,7 +150,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <button type="submit" id="btnsubmitpedido" style="width: 10rem; height:2rem; margin-left: 15px"
+                    <button type="submit" id="btnsubmitpedido" style="width: 10rem; height:2rem; margin-left: 15px" onclick="desabilita()"
                         class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 mb-2 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg">Salvar</button>
                 </form>
             </div>

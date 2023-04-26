@@ -47,7 +47,7 @@
                         for="grid-first-name">
                         Data do pedido
                     </label>
-                    <input id="dataPedido" type="date" name="dataPedido"
+                    <input id="dataPedido" type="date" name="dataPedido" value="{{date('Y-m-d')}}"
                         class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                 <div class=" md:w-2/12 px-3 mb-6 md:mb-0">

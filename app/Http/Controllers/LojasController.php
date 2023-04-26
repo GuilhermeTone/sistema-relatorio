@@ -29,8 +29,8 @@ class LojasController extends Controller
     {
         $idLoja = $request->get('idLoja');
 
-        $produto = Lojas::select('idLoja', 'Nome')->where('idLoja', $idLoja)->get();
-        return response()->json($produto);
+        $lojas = Lojas::select('idLoja', 'Nome')->where('idLoja', $idLoja)->get();
+        return response()->json($lojas);
     }
     public function update(Request $request)
     {

@@ -9,7 +9,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Editar Produtos') }}
+            {{ __('Excluir Usuario') }}
         </h2>
     </x-slot>
 
@@ -54,6 +54,3 @@
     </body>
 
 </x-app-layout>
-
-
-<script src="{{ asset('js/produtos/editar.js') }}"></script>

@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\PedidosProdutosPosCompras;
+use App\Models\Lojas;
 
 class PedidosConfirmadosController extends Controller
 {
     public function index()
     {
-        return view('pedidosConfirmados.index');
+        $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
+        return view('pedidosConfirmados.index', $data);
     }
     public function listarPedidosConfirmados(Request $request)
     {
@@ -18,18 +20,14 @@ class PedidosConfirmadosController extends Controller
         $pedidosConfirmadosModel = new PedidosProdutosPosCompras();
 
         $dataPedido = $request->get('dataPedido');
+        $idLoja = $request->get('idLoja');
         $response = [];
 
         if (!isset($dataPedido)) {
             $dataPedido = date("Y-m-d");
         }
 
-        $idLoja = Auth::user()->idLoja;
-
         $response = $pedidosConfirmadosModel->listarPedidosConfirmados($dataPedido, $idLoja);
-        
-
-        // var_dump($response);die;
 
         if ($response) {
 

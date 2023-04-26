@@ -60,12 +60,16 @@ class pedidosProdutos extends Model
         WHERE pp.deleted_at IS NULL
         AND pd.deleted_at IS NULL
         AND p.deleted_at IS NULL
-        AND  DATE(p.created_at) = ?
-        GROUP BY pd.idProduto, pd.Nome, pp.idProduto";
+        AND  DATE(p.created_at) = ?";
+        $parametros[] = $dataPedido;
+        if ($tipo != 'Frutas, Legumes, Verduras') {
+            $sql .= " AND pd.Tipos = ?";
+            $parametros[] = $tipo;
+        }
+        $sql .= " GROUP BY pd.idProduto, pd.Nome, pp.idProduto";
         
        
-        $parametros[] = $dataPedido;
-        // $parametros[] = $tipo;
+       
 
         // var_dump($parametros);
         // var_dump($sql);die;

@@ -29,7 +29,7 @@
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Cadastrar Usuario') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('Excluir')">
+                    <x-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('excluirUsuario')">
                         {{ __('Excluir Usuario') }}
                     </x-nav-link>
                     <x-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
