@@ -81,8 +81,11 @@
                             <tr>
                                 <th class="centralizar">Produtos</th>
                                 @foreach ($lojas as $loja)
-                                    <th class="centralizar">{{ $loja->Nome }}</th>
-                                    {{-- <th class="centralizar">Unidade {{ $loja->Nome }}</th> --}}
+                                    @if($loja->idLoja != 1){
+                                        <th class="centralizar">{{ $loja->Nome }}</th>
+                                    }
+                                    @endif
+                                   
                                 @endforeach
 
                             </tr>

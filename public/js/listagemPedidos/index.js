@@ -8,10 +8,14 @@ $(document).ready(function () {
 });
 var colunas = [];
 $.each(JSON.parse(arrayPedido), function (indexInArray, valueOfElement) {
-    colunas.push({
-        data: valueOfElement,
-        sClass: "esquerda",
-    });
+    
+    if (valueOfElement != "Quantidade_Loja1"){
+        colunas.push({
+            data: valueOfElement,
+            sClass: "esquerda",
+        });
+    }
+    
 });
 var tabela = jQuery('.table').DataTable({
     
@@ -21,6 +25,8 @@ var tabela = jQuery('.table').DataTable({
         $('td', row).css('border-bottom', '1px solid #ccc');
     },
     dom: 'Blfrtip',
+
+    "pageLength": -1,
 
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 

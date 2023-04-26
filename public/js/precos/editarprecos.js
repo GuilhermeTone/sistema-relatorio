@@ -9,6 +9,8 @@ var tabela = jQuery('.table').DataTable({
         },
     ],
 
+    "pageLength": -1,
+
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 
     columns: [
