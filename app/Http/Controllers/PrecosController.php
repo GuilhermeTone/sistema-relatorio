@@ -95,7 +95,9 @@ class PrecosController extends Controller
     {
         $idPrecoProduto = $request->get('idPrecoProduto');
         $ValorProduto = $request->get('ValorProduto');
+        
         $ValorProduto = str_replace(',', '.', $ValorProduto);
+        
 
         $idPrecoProduto = PrecosProdutos::where('idPrecoProduto', $idPrecoProduto)->update(['Valor' => $ValorProduto]);
 

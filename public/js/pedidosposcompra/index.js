@@ -92,6 +92,10 @@ var tabela = jQuery('.table').DataTable({
             sClass: "text-center",
         },
         {
+            data: "Tipos",
+            sClass: "text-center"
+        },
+        {
             data: "Unidade",
             sClass: "text-center"
         },
@@ -138,14 +142,15 @@ var tabela = jQuery('.table').DataTable({
 function pesquisar() {
     $('#tabela').hide();
     var dataPedido = $('#dataPedido').val();
-    var tipo = $('#tipo').val();
+    var idLoja = $('#loja').val();
+    // var tipo = $('#tipo').val();
 
     $.ajax({
         type: `POST`,
         url: `${APP_URL}/listarPedidoPosCompra`,
         data: {
             dataPedido: dataPedido,
-            tipo: tipo,
+            idLoja:idLoja,
             _token: TOKEN_CSRF,
         },
         success: (response) => {
@@ -163,7 +168,6 @@ function pesquisar() {
                 console.log(response)
                 tabela.clear();
                 tabela.rows.add(response.produtosPedido).draw()
-                $('.Valor').mask('#.##0,00', { reverse: true });
                 $('#tabela').show();
                 
             }

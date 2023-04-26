@@ -76,17 +76,17 @@ class pedidosProdutos extends Model
 
         return DB::select($sql, $parametros);
     }
-    public function listagemProdutosPosCompra($dataPedido, $tipo)
+    public function listagemProdutosPosCompra($dataPedido, $tipo, $idLoja)
     {
         $parametros = array();
 
         $sql =
-        "SELECT
-        pd.Nome
+        "SELECT pd.Nome
         , pp.idPedido
         , pp.idProduto
-        ,pp.Quantidade
+        , pp.Quantidade
       	, pp.Unidade
+        , pd.Tipos
       	,l.Nome AS NomeLoja
       	,pp.Valor
         FROM pedidos_produtos pp
@@ -103,6 +103,8 @@ class pedidosProdutos extends Model
             $sql .= " AND pd.Tipos = ?";
             $parametros[] = $tipo;
         }
+        $sql .= " AND p.idLoja = ?";
+        $parametros[] = $idLoja;
 
         return DB::select($sql, $parametros);
     }

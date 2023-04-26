@@ -170,6 +170,7 @@ class PedidosController extends Controller
     }
     public function pedidosPosCompra()
     {
+        $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
         $data['mensagem'] = session('mensagem');
         return view('pedidosPosCompra.index', $data);
     }
@@ -177,7 +178,7 @@ class PedidosController extends Controller
     {
         $dataPedido = $request->get('dataPedido');
         $tipo = $request->get('tipo');
-        $idLoja = [];
+        $idLoja = $request->get('idLoja');
         $response = [];
 
         if (!isset($dataPedido)) {
@@ -190,7 +191,7 @@ class PedidosController extends Controller
 
         $pedidosProdutosModel = new pedidosProdutos();
 
-        $data['produtosPedido'] = $pedidosProdutosModel->listagemProdutosPosCompra($dataPedido, $tipo);
+        $data['produtosPedido'] = $pedidosProdutosModel->listagemProdutosPosCompra($dataPedido, $tipo, $idLoja);
 
         // var_dump($data['produtosPedido']);die;
 

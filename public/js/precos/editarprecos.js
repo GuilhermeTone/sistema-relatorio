@@ -34,8 +34,17 @@ var tabela = jQuery('.table').DataTable({
         },
 
         {
-            data: "Valor",
-            sClass: "text-center"
+            data: function (row, type, val, meta) {
+
+                var input = '';
+                input += `
+                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full Valor" id="valorProduto[` + meta.row + `]" type="text" name="valorProduto[` + meta.row + `]" maxlength="6" value="` + row['Valor'] + `" required>
+                    `
+                    ;
+
+                return input;
+            },
+            sClass: "text-center",
         },
 
         {
@@ -43,7 +52,7 @@ var tabela = jQuery('.table').DataTable({
 
                 var botoes = '';
                 botoes += `
-                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg abrirmodal" style="width:150px; height: 35px;" onclick="editarPreco('`+ row["idPrecoProduto"] + `')">
+                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg abrirmodal" style="width:150px; height: 35px;" onclick="editarPrecoProduto('`+ row["idPrecoProduto"] + `', '` + meta.row + `')">
                             Editar preço
                     </button>`
                     ;
@@ -75,41 +84,89 @@ var tabela = jQuery('.table').DataTable({
     order: [[1, 'asc']],
 });
 $(document).ready(function () {
-    
+
     tabela.rows.add(JSON.parse(precosProdutos)).draw()
 
 
 
 });
 
-function editarPreco(idPrecoProduto) {
+// function editarPreco(idPrecoProduto) {
 
-    $('#default-modal').removeClass('hidden');
-    
-    $('#valorProduto').val('');
-    $('#idPrecoProduto').val('');
-    $('#nomeProduto').empty();
-    $('#tipoProduto').empty();
+//     $('#default-modal').removeClass('hidden');
 
-    $('#valorProduto').mask('#.##0,00', { reverse: true });
+//     $('#valorProduto').val('');
+//     $('#idPrecoProduto').val('');
+//     $('#nomeProduto').empty();
+//     $('#tipoProduto').empty();
 
-   
+//     $('#valorProduto').mask('#.##0,00', { reverse: true });
+
+
+
+//     $.ajax({
+//         type: `POST`,
+//         url: `${APP_URL}/listarinfoPreco`,
+//         data: {
+//             idPrecoProduto: idPrecoProduto,
+//             _token: TOKEN_CSRF,
+//         },
+//         success: (response) => {
+//             $('#idPrecoProduto').val(response[0].idPrecoProduto);
+//             $('#valorProduto').val(response[0].Valor);
+//             $('#nomeProduto').text(response[0].Nome);
+//             $('#tipoProduto').text(response[0].tipoPreco);
+
+//             $('#valorProduto').focus();
+
+//         },
+//         error: (error) => {
+//             swal({
+//                 title: "Erro!",
+//                 text: `Houve um erro interno`,
+//                 icon: "error",
+//                 timer: 1500,
+//                 buttons: false,
+//             });
+//         }
+//     })
+
+// }
+// function desabilita() {
+//     $('#btnsubmit').prop('disabled', true);
+// }
+function editarPrecoProduto(idPrecoProduto, index) {
 
     $.ajax({
         type: `POST`,
-        url: `${APP_URL}/listarinfoPreco`,
+        url: `${APP_URL}/editarPrecoProduto`,
         data: {
             idPrecoProduto: idPrecoProduto,
+            ValorProduto: $('#valorProduto\\[' + index + '\\]').val(),
             _token: TOKEN_CSRF,
         },
         success: (response) => {
-            $('#idPrecoProduto').val(response[0].idPrecoProduto);
-            $('#valorProduto').val(response[0].Valor);
-            $('#nomeProduto').text(response[0].Nome);
-            $('#tipoProduto').text(response[0].tipoPreco);
+            if (response) {
+                swal({
+                    text: "Sucesso, Preço do produto editado",
+                    icon: "success",
+                    buttons: false,
+                    timer: 2000
+                })
+                pesquisar();
+                $('#default-modal').addClass('hidden');
+                // location.reload()
+            } else {
 
-            $('#valorProduto').focus();
-            
+                swal({
+                    text: 'Houve um erro interno',
+                    icon: "error",
+                    buttons: false,
+                    timer: 2000
+
+                });
+            }
+
         },
         error: (error) => {
             swal({
@@ -123,79 +180,6 @@ function editarPreco(idPrecoProduto) {
     })
 
 }
-// function desabilita() {
-//     $('#btnsubmit').prop('disabled', true);
-// }
-function editarPrecoProduto() {
-    swal({
-        Title: "Atenção!",
-        text: "Deseja realmente editar o preço deste produto?",
-        closeOnClickOutside: false,
-        closeOnEsc: false,
-        buttons: {
-            cancel: {
-                text: "Não!",
-                value: false,
-                visible: true,
-                closeModal: true
-            },
-            confirm: {
-                text: "Sim!",
-                value: true,
-                visible: true,
-                className: "btn-primary",
-                closeModal: true
-            }
-        }
-    }).then((value) => {
-        if (value) {
-            $.ajax({
-                type: `POST`,
-                url: `${APP_URL}/editarPrecoProduto`,
-                data: {
-                    idPrecoProduto: $('#idPrecoProduto').val(),
-                    ValorProduto: $('#valorProduto').val(),
-                    _token: TOKEN_CSRF,
-                },
-                success: (response) => {
-                    if (response) {
-                        swal({
-                            text: "Sucesso, Preço do produto editado",
-                            icon: "success",
-                            buttons: false,
-                            timer: 2000
-                        })
-                        pesquisar();
-                        $('#default-modal').addClass('hidden');
-                        // location.reload()
-                    } else {
-
-                        swal({
-                            text: 'Houve um erro interno',
-                            icon: "error",
-                            buttons: false,
-                            timer: 2000
-
-                        });
-                    }
-
-                },
-                error: (error) => {
-                    swal({
-                        title: "Erro!",
-                        text: `Houve um erro interno`,
-                        icon: "error",
-                        timer: 1500,
-                        buttons: false,
-                    });
-                }
-            })
-
-        } else {
-            swal.close();
-        }
-    });
-}
 function pesquisar() {
     $.ajax({
         type: `POST`,
@@ -207,16 +191,17 @@ function pesquisar() {
             if (response) {
                 tabela.clear().draw()
                 tabela.rows.add(response).draw()
+
             }
-        error: (error) => {
-            swal({
-                title: "Erro!",
-                text: `Houve um erro interno`,
-                icon: "error",
-                timer: 1500,
-                buttons: false,
-            });
-        }
+            error: (error) => {
+                swal({
+                    title: "Erro!",
+                    text: `Houve um erro interno`,
+                    icon: "error",
+                    timer: 1500,
+                    buttons: false,
+                });
+            }
         }
     })
 }

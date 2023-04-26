@@ -20,9 +20,9 @@
                         </svg>
                         <span class="sr-only">Info</span>
                         <div>
-                           @foreach ( $retornos as $retorno)
-                               <p class="font-medium">{{$retorno}}</p>
-                           @endforeach
+                            @foreach ($retornos as $retorno)
+                                <p class="font-medium">{{ $retorno }}</p>
+                            @endforeach
                         </div>
                     </div>
                 @endif
@@ -37,7 +37,7 @@
 
                                     Produto
                                 </th>
-                                <th scope="col"
+                                <th scope="row"
                                     class="text-gray-dark border-gray border-b-2 border-t-2 border-gray-200 py-3 px-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-white text-center">
                                     <!---->
                                     Valor por unidade
@@ -54,28 +54,28 @@
                                             class="text-gray-dark py-3 px-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider bg-white text-center">
                                             {{ $produto->Nome }}</p>
                                     </td>
-                                    <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm ">
+
+                                    <td class="py-4 px-6 border-b border-gray-200 text-gray-900 text-sm">
+                                        <div class="flex justify-evenly">
                                         <x-text-input class="valorProduto" id="valorProduto[Caixa][{{ $index }}]"
-                                            class="block mt-1 w-full produto" type="text"
-                                            name="valorProduto[Caixa][{{ $index }}]" placeholder="Caixa"
-                                             />
-                                        <x-text-input class="valorProduto" id="valorProduto[Unidade]['Caixa'][{{ $index }}]"
-                                            class="block mt-1 w-full produto" type="text"
-                                            name="valorProduto[Unidade][{{ $index }}]" placeholder="Unidade"
-                                             />
-                                        <x-text-input class="valorProduto" id="valorProduto[Saco][{{ $index }}]" placeholder="Maço"
-                                            class="block mt-1 w-full produto" type="text"
-                                            name="valorProduto[Saco][{{ $index }}]" placeholder="Saco"
-                                             />
+                                            class="block mt-1 produto" type="text"
+                                            name="valorProduto[Caixa][{{ $index }}]" placeholder="Caixa" />
+                                        <x-text-input class="valorProduto"
+                                            id="valorProduto[Unidade]['Caixa'][{{ $index }}]"
+                                            class="block mt-1 produto" type="text"
+                                            name="valorProduto[Unidade][{{ $index }}]" placeholder="Unidade" />
+                                        <x-text-input class="valorProduto" id="valorProduto[Saco][{{ $index }}]"
+                                            placeholder="Maço" class="block mt-1 produto" type="text"
+                                            name="valorProduto[Saco][{{ $index }}]" placeholder="Saco" />
                                         <x-text-input class="valorProduto" id="valorProduto[Maco][{{ $index }}]"
-                                            class="block mt-1 w-full produto" type="text"
-                                            name="valorProduto[Maco][{{ $index }}]" placeholder="Maço"
-                                             />
+                                            class="block mt-1 produto" type="text"
+                                            name="valorProduto[Maco][{{ $index }}]" placeholder="Maço" />
                                         <x-text-input class="valorProduto" id="valorProduto[Kilo][{{ $index }}]"
-                                            class="block mt-1 w-full produto" type="text"
-                                            name="valorProduto[Kilo][{{ $index }}]" placeholder="Kilo"
-                                             />
+                                            class="block mt-1 produto" type="text"
+                                            name="valorProduto[Kilo][{{ $index }}]" placeholder="Kilo" />
+                                            </div>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

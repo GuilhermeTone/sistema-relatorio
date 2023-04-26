@@ -26,37 +26,59 @@
                         {{ __('Dashboard') }}
                     </x-nav-link> --}}
                     @if(Auth::user()->Cargo == 'admin')
-                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                        {{ __('Cadastrar Usuario') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('excluirUsuario')" :active="request()->routeIs('excluirUsuario')">
-                        {{ __('Excluir Usuario') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
+
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out font-medium rounded-lg text-sm px-1 pt-1 pb-3 text-center inline-flex items-center" type="button">Menu<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <x-nav-link :href="route('register')" class="px-3 py-3" :active="request()->routeIs('register')">
+                                {{ __('Cadastrar Usuario') }}
+                            </x-nav-link>
+                        </li>
+                        <li>
+                            <x-nav-link :href="route('excluirUsuario')" class="px-3 py-3" :active="request()->routeIs('excluirUsuario')">
+                                {{ __('Excluir Usuario') }}
+                            </x-nav-link>
+                        </li>
+                        <li>
+                            <x-nav-link :href="route('cadastrarProduto')" class="px-3 py-3" :active="request()->routeIs('cadastrarProduto')">
+                                {{ __('Cadastrar Produtos') }}
+                            </x-nav-link>
+                        </li>
+                        <li>
+                            <x-nav-link :href="route('lojas')" class="px-3 py-3" :active="request()->routeIs('lojas')">
+                                {{ __('Lojas') }}
+                            </x-nav-link>
+                        </li>
+                         <li>
+                            <x-nav-link :href="route('precos')" class="px-3 py-3" :active="request()->routeIs('precos')">
+                                {{ __('Cadastro de Precos') }}
+                            </x-nav-link>
+                        </li>
+                        </ul>
+                    </div>
+                  
+                    
+                    <x-nav-link :href="route('cadastrarPedido')" class="px-3 py-3" :active="request()->routeIs('cadastrarPedido')">
                         {{ __('Cadastrar Pedidos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('cadastrarProduto')" :active="request()->routeIs('cadastrarProduto')">
-                        {{ __('Cadastrar Produtos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('editarProduto')" :active="request()->routeIs('editarProduto')">
+                    
+                    <x-nav-link :href="route('editarProduto')" class="px-3 py-3" :active="request()->routeIs('editarProduto')">
                         {{ __('Editar Produtos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('lojas')" :active="request()->routeIs('lojas')">
-                        {{ __('Lojas') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
+                  
+                    <x-nav-link :href="route('ListagemPedidos')" class="px-3 py-3" :active="request()->routeIs('ListagemPedidos')">
                         {{ __('Listagem de Pedidos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('pedidosPosCompra')" :active="request()->routeIs('pedidosPosCompra')">
+                    <x-nav-link :href="route('pedidosPosCompra')" class="px-3 py-3" :active="request()->routeIs('pedidosPosCompra')">
                         {{ __('Pedidos Pós Compra') }}
                     </x-nav-link>
-                     <x-nav-link :href="route('precos')" :active="request()->routeIs('precos')">
-                        {{ __('Cadastro de Precos') }}
-                    </x-nav-link>
-                     <x-nav-link :href="route('editarPrecos')" :active="request()->routeIs('editarPrecos')">
+                     
+                     <x-nav-link :href="route('editarPrecos')" class="px-3 py-3" :active="request()->routeIs('editarPrecos')">
                         {{ __('Editar Preços') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('pedidosConfirmados')" :active="request()->routeIs('pedidosConfirmados')">
+                    <x-nav-link :href="route('pedidosConfirmados')" class="px-3 py-3" :active="request()->routeIs('pedidosConfirmados')">
                         {{ __('Pedidos Confirmados') }}
                     </x-nav-link>
                     @endif
