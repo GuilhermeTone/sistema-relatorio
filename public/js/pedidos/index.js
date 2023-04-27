@@ -40,19 +40,3 @@ $('#formPedido').on('submit', function (event) {
     }
     
 });
-
-// const frutasDiv = document.querySelector('.Frutas');
-// const inputsFrutas = frutasDiv.querySelectorAll('.grid-cols-3 input[name^="quantidadeFrutas["]');
-
-// inputsFrutas.forEach(input => {
-//     input.addEventListener('keydown', (event) => {
-//         if (event.key === 'Tab') {
-//             event.preventDefault(); // impede o comportamento padrão do "Tab"
-//             const nextInput = input.nextElementSibling; // obtém o próximo elemento abaixo
-//             console.log(nextInput)
-//             if (nextInput) {
-//                 nextInput.focus({ preventScroll: true }); // define o foco no próximo elemento abaixo
-//             }
-//         }
-//     });
-// });

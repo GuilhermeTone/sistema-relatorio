@@ -59,7 +59,6 @@
                         </ul>
                     </div>
                   
-                    
                     <x-nav-link :href="route('cadastrarPedido')" class="px-3 py-3" :active="request()->routeIs('cadastrarPedido')">
                         {{ __('Cadastrar Pedidos') }}
                     </x-nav-link>

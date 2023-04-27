@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::post('inserirValores', [PedidosController::class, 'inserirValores'])->name('inserirValores');
     route::post('listarPedidoPosCompra', [PedidosController::class, 'listarPedidoPosCompra'])->name('listarPedidoPosCompra');
     route::post('inserirValores', [PedidosController::class, 'inserirValores'])->name('inserirValores');
+    route::post('incluirProduto', [PedidosController::class, 'incluirProduto'])->name('incluirProduto');
     
     //CADASTRO PRECOS
     Route::get('precos', [PrecosController::class, 'index'])->name('precos');

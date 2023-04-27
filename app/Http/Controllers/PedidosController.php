@@ -171,6 +171,7 @@ class PedidosController extends Controller
     public function pedidosPosCompra()
     {
         $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
+        $data['produtos'] = Produto::select('idProduto', 'Nome')->where('deleted_at', NULL)->get();
         $data['mensagem'] = session('mensagem');
         return view('pedidosPosCompra.index', $data);
     }
@@ -227,15 +228,15 @@ class PedidosController extends Controller
 
         //FOREACH PARA FRUTAS
         foreach ($idPedidos as $index => $value) {
-
-            $idPedidoProduto = PedidosProdutosPosCompras::create([
-                'idProduto' => $idProdutos[$index],
-                'idPedido' => $idPedidos[$index],
-                'Quantidade' => $Quantidades[$index],
-                'Unidade' => $Unidades[$index],
-                'Valor' => str_replace(',', '.', $Valores[$index]),
-            ]);
-
+            if($Quantidades[$index] > 0){
+                $idPedidoProduto = PedidosProdutosPosCompras::create([
+                    'idProduto' => $idProdutos[$index],
+                    'idPedido' => $idPedidos[$index],
+                    'Quantidade' => $Quantidades[$index],
+                    'Unidade' => $Unidades[$index],
+                    'Valor' => str_replace(',', '.', $Valores[$index]),
+                ]);
+            }
             Pedidos::where('idPedido', $idPedidos[$index])->update(['Status' => 'Confirmado']);
         }
 
@@ -253,5 +254,24 @@ class PedidosController extends Controller
         // var_dump($response);die;
 
         return response()->json($response);
+    }
+    public function incluirProduto(Request $request)
+    {
+        $idPedido = $request->get('idPedido');
+        $idProduto = $request->get('idProduto');
+        $Quantidade = $request->get('Quantidade');
+        $Unidade = $request->get('Unidade');
+        
+        //FOREACH PARA FRUTAS
+        $idPedidoProduto = pedidosProdutos::create([
+            'idProduto' => $idProduto,
+            'idPedido' => $idPedido,
+            'Quantidade' => $Quantidade,
+            'Unidade' => $Unidade,
+        ]);
+
+        if($idPedidoProduto){
+            return response()->json('Sucesso');
+        }
     }
 }

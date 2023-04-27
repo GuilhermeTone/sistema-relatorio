@@ -65,6 +65,12 @@ var tabela = jQuery('.table').DataTable({
                     }
                 });
             }
+        },
+        {
+            text: 'Incluir Produto',
+            attr: {
+                'data-modal-toggle':'default-modal'
+            },
         }
     ],
 
@@ -185,28 +191,6 @@ function pesquisar() {
 }
 
 function imprimir() {
-    // // Cria uma variável que contém a tabela
-    // var tabela = document.getElementById('datatable-search');
-
-    // // Salva o HTML da tabela em uma variável
-    // var tabela_html = tabela.outerHTML;
-
-    // // Abre uma nova janela com o HTML da tabela
-    // var nova_janela = window.open('', 'Imprimir Tabela');
-
-    // // Escreve o HTML da tabela na nova janela
-    // nova_janela.document.write('<html><head><title>Imprimir Tabela</title></head><body>');
-    // nova_janela.document.write(tabela_html);
-    // nova_janela.document.write('</body></html>');
-
-    // // Fecha o documento atual
-    // nova_janela.document.close();
-
-    // // Espera a janela ser carregada e imprime a tabela
-    // setTimeout(function () {
-    //     nova_janela.print();
-    //     nova_janela.close();
-    // }, 1000);
     printJS({
         printable: 'datatable-search',
         type: 'html',
@@ -251,3 +235,40 @@ $('#formposcompra').on('submit', function (event) {
     }
 
 });
+function incluirProduto() { 
+
+    
+
+    $.ajax({
+        type: `POST`,
+        url: `${APP_URL}/incluirProduto`,
+        data: {
+            idPedido: $('#idPedido\\[0\\]').val(),
+            idProduto: $('#idProdutoInclusao').val(),
+            Quantidade: $('#QuantidadeInclusao').val(),
+            Unidade: $('#unidadeInclusao').val(),
+            _token: TOKEN_CSRF,
+        },
+        success: (response) => {
+            swal({
+                text: "Sucesso, Produto includo",
+                icon: "success",
+                buttons: false,
+                timer: 2000
+            })
+            pesquisar()
+            $('#idProdutoInclusao').val('');
+            $('#QuantidadeInclusao').val('');
+            $('#unidadeInclusao').val('');
+        },
+        error: (error) => {
+            swal({
+                title: "Erro!",
+                text: `Houve um erro interno`,
+                icon: "error",
+                timer: 1500,
+                buttons: false,
+            });
+        }
+    })
+ }

@@ -40,6 +40,7 @@
                 <button type="button" style="width: 10rem; height:2rem; margin-right: 15px"
                     class="text-white bg-gray-800 mt-2 ml-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg"
                     onclick=imprimir()>Imprimir</button>
+                
             </div>
             <div class="flex flex-wrap -mx-3 mb-6 flex justify-center pb-5">
                 <div class=" md:w-2/12 px-3 mb-6 md:mb-0">
@@ -90,6 +91,8 @@
                 <div class="table-responsive py-3 px-3">
                     <table class="table table-flush text-slate-500 w-100" datatable id="datatable-search"
                         style="width: 100% !important">
+                         <button type="button" style="width: 10rem; height:2rem; margin-left: 15px"
+                        class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" onclick="incluirProduto()">Incluir Produto</button>
                         <thead class="thead-light">
                             <tr>
                                 <th class="centralizar">Produtos</th>
@@ -107,11 +110,12 @@
                     </table>
                     <button type="submit" id="btnsubmitproduto" style="width: 10rem; height:2rem; margin-left: 15px"
                         class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg">Salvar</button>
+                   
                 </div>
             </div>
             </form>
         </div>
     </body>
-
+    @include('pedidosPosCompra.modals.modalCadastrarProduto', [$produtos])
 </x-app-layout>
 <script src="{{ asset('js/pedidosposcompra/index.js') }}"></script>
