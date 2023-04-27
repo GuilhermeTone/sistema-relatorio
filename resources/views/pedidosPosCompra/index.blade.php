@@ -91,8 +91,7 @@
                 <div class="table-responsive py-3 px-3">
                     <table class="table table-flush text-slate-500 w-100" datatable id="datatable-search"
                         style="width: 100% !important">
-                         <button type="button" style="width: 10rem; height:2rem; margin-left: 15px"
-                        class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" onclick="incluirProduto()">Incluir Produto</button>
+                    
                         <thead class="thead-light">
                             <tr>
                                 <th class="centralizar">Produtos</th>
