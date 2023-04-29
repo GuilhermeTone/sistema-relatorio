@@ -98,8 +98,8 @@
                                 <th class="centralizar">Quantidade</th>
                                 <th class="centralizar">Tipo</th>
                                 <th class="centralizar">Unidade</th>
-                                <th class="centralizar">Loja</th>
-                                <th class="centralizar">Valor</th>
+                                <th class="centralizar">Valor Unitario</th>
+                                
 
                             </tr>
                         </thead>
@@ -107,6 +107,7 @@
 
                         </tbody>
                     </table>
+                    
                     <button type="submit" id="btnsubmitproduto" style="width: 10rem; height:2rem; margin-left: 15px"
                         class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg">Salvar</button>
                    

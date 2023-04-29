@@ -46,4 +46,26 @@ class PedidosProdutosPosCompras extends Model
 
         return DB::select($sql, $parametros);
     }
+    public function listarValorTotal($dataPedido, $idLoja)
+    {
+        $parametros = array();
+
+        $sql =
+            "SELECT
+        SUM(pp.Valor) AS ValorTotal
+        FROM pedidos_produtos_pos_compras pp
+        INNER JOIN produtos pd ON pp.idProduto = pd.idProduto
+        INNER JOIN pedidos p ON pp.idPedido = p.idPedido
+        INNER JOIN lojas l ON p.idLoja = l.idLoja
+        WHERE pp.deleted_at IS NULL
+        AND pd.deleted_at IS NULL
+        AND p.deleted_at IS NULL
+        AND p.idLoja = ?
+        AND DATE(p.created_at) = ?
+        AND p.Status = 'Confirmado'";
+        $parametros[] = $idLoja;
+        $parametros[] = $dataPedido;
+
+        return DB::select($sql, $parametros);
+    }
 }

@@ -31,7 +31,7 @@
                                 @endforeach
                             </select>
                     </div>
-                   <div class="mt-4">
+                    <div class="mt-4">
                         <x-input-label for="Produto" :value="__('Quantidade')" required/>
                         <x-text-input id="QuantidadeInclusao" class="block mt-3 w-full quantidadeVerduras" type="text"
                             name="QuantidadeInclusao" />

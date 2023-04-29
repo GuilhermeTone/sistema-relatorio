@@ -108,7 +108,15 @@ function pesquisar() {
 
             } else {
                 tabela.clear();
-                tabela.rows.add(response).draw()
+                tabela.rows.add(response.Pedidos).draw()
+
+                var valorTotal = response.ValorTotal[0].ValorTotal;
+                var novaLinha = '<tr><th class="centralizar">Valor Total Pedido:</th><th></th><th></th><th></th><th class="centralizar">' + valorTotal + '</th></tr>';
+
+                var tfoot = $('.table').find('tfoot');
+                tfoot.empty();
+                tfoot.append(novaLinha);
+                tabela.draw();
                 $('#tabela').show();
 
             }

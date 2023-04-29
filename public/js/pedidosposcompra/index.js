@@ -52,6 +52,8 @@ var tabela = jQuery('.table').DataTable({
                                 if (data.Nome === produto && data.Unidade === tipoPreco) {
 
                                     var Quantidade = $(rowNode).find('.Quantidade').val();
+                                    $(rowNode).find('.ValorUnitario').val(valor.toFixed(2));
+                                    
 
                                     valor = valor * Quantidade;
                                     
@@ -86,6 +88,7 @@ var tabela = jQuery('.table').DataTable({
 
                 var input = '';
                 input += `
+                    <input type="hidden" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full Valor" id="Valor[` + meta.row + `]" type="text" name="Valor[` + meta.row + `]" maxlength="6" value="0" required readonly>
                     <input type="hidden" id="idProduto[` + meta.row + `]" name="idProduto[` + meta.row + `]" value="` + row['idProduto'] + `">
                     <input type="hidden" id="idPedido[` + meta.row + `]" name="idPedido[` + meta.row + `]" value="` + row['idPedido'] + `">
                     <input type="hidden" id="Unidade[` + meta.row + `]" name="Unidade[` + meta.row + `]" value="` + row['Unidade'] + `">
@@ -106,15 +109,11 @@ var tabela = jQuery('.table').DataTable({
             sClass: "text-center"
         },
         {
-            data: "NomeLoja",
-            sClass: "text-center"
-        },
-        {
             data: function (row, type, val, meta) {
 
                 var input = '';
                 input += `
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full Valor" id="Valor[` + meta.row + `]" type="text" name="Valor[` + meta.row + `]" maxlength="6" value="" required>
+                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full ValorUnitario" id="ValorUnitario[` + meta.row + `]" type="text" name="ValorUnitario[` + meta.row + `]" maxlength="6" value="" required readonly>
                     `
                     ;
 
@@ -199,8 +198,10 @@ function imprimir() {
     });
 }
 $('#formposcompra').on('submit', function (event) {
+   
     event.preventDefault();
     var form = $('#formposcompra').get(0);
+    $(".ValorUnitario").removeAttr("readonly");
     console.log(form)
     if (form.checkValidity()) {
         swal({
@@ -226,12 +227,16 @@ $('#formposcompra').on('submit', function (event) {
         }).then((value) => {
             if (value) {
                 $('#formposcompra').submit();
+            }else{
+                $(".ValorUnitario").prop("readonly", true);
             }
         });
 
     } else {
         // Se o formulário for inválido, acione a validação
+        
         form.reportValidity();
+        $(".ValorUnitario").prop("readonly", true);
     }
 
 });
@@ -272,3 +277,5 @@ function incluirProduto() {
         }
     })
  }
+
+ 

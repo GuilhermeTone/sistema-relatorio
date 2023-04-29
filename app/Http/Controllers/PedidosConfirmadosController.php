@@ -27,7 +27,8 @@ class PedidosConfirmadosController extends Controller
             $dataPedido = date("Y-m-d");
         }
 
-        $response = $pedidosConfirmadosModel->listarPedidosConfirmados($dataPedido, $idLoja);
+        $response['Pedidos'] = $pedidosConfirmadosModel->listarPedidosConfirmados($dataPedido, $idLoja);
+        $response['ValorTotal'] = $pedidosConfirmadosModel->listarValorTotal($dataPedido, $idLoja);
 
         if ($response) {
 

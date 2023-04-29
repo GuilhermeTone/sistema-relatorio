@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class PrecosController extends Controller
 {
     public function index(){
-        $produtos = Produto::select('idProduto', 'Nome', 'Tipos',)->get();
+        $produtos = Produto::select('idProduto', 'Nome', 'Tipos',)->orderBy('Nome', 'asc')->get();
         $data['produtos'] = $produtos;
         $data['retornos'] = session('retornos');
         return view('precos.index', $data);
