@@ -34,7 +34,7 @@
                 @endif
                 <form method="POST" id="formPedido" action="{{ route('cadastrarPedido') }}">
                     @csrf
-                    <div class="grid grid-cols-3 gap-4 mt-2 ">
+                    <div class="grid lg:grid-cols-3 gap-4 mt-2">
                         <div class="grid-rows-1 justify-center Frutas">
                             <div class="flex justify-center">Frutas - F1</div>
                             <div class="grid grid-cols-3 mt-3">
