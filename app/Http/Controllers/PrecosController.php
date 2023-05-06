@@ -26,32 +26,33 @@ class PrecosController extends Controller
         foreach ($idProdutos as $index => $value) {
 
             foreach($ProdutosPrecos as $index2 => $ProdutosPreco){
-
-                if(strlen($ProdutosPreco[$index]) > 0){
-                    $idPrecoProdutoExiste = PrecosProdutos::select('precos_produtos.idProduto', 'produtos.Nome', 'precos_produtos.tipoPreco',)
-                    ->join('produtos', 'produtos.idProduto', '=', 'precos_produtos.idProduto')
-                    ->where('precos_produtos.idProduto', $idProdutos[$index])
-                        ->where('precos_produtos.tipoPreco', $index2)
-                        ->where('precos_produtos.deleted_at', NUll)->get();
-            
-                    if (count($idPrecoProdutoExiste) == 0) {
-                        $idPedidoProduto = PrecosProdutos::create([
-                            'idProduto' => $idProdutos[$index],
-                            'tipoPreco' => $index2,
-                            'Valor' => str_replace(',', '.', $ProdutosPreco[$index]),
-                        ]);
+                if(isset($ProdutosPreco[$index])){
+                    if (strlen($ProdutosPreco[$index]) > 0) {
                         $idPrecoProdutoExiste = PrecosProdutos::select('precos_produtos.idProduto', 'produtos.Nome', 'precos_produtos.tipoPreco',)
                         ->join('produtos', 'produtos.idProduto', '=', 'precos_produtos.idProduto')
                         ->where('precos_produtos.idProduto', $idProdutos[$index])
-                        ->where('precos_produtos.tipoPreco', $index2)
-                        ->where('precos_produtos.deleted_at', NUll)->get();
-                        $data['retornos'][] = 'Preço do produto: ' . $idPrecoProdutoExiste[0]->Nome . ' no Tipo:' . $idPrecoProdutoExiste[0]->tipoPreco . ', Foi Inserido com sucesso';
-                    } else {
-                        // var_dump($idPrecoProdutoExiste);die;
-                        $data['retornos'][] = 'Preço do produto: ' . $idPrecoProdutoExiste[0]->Nome . ' no Tipo:' . $idPrecoProdutoExiste[0]->tipoPreco . ' já existe, para editá-lo utilize a tela de edição de preços';
-                        
+                            ->where('precos_produtos.tipoPreco', $index2)
+                            ->where('precos_produtos.deleted_at', NUll)->get();
+
+                        if (count($idPrecoProdutoExiste) == 0) {
+                            $idPedidoProduto = PrecosProdutos::create([
+                                'idProduto' => $idProdutos[$index],
+                                'tipoPreco' => $index2,
+                                'Valor' => str_replace(',', '.', $ProdutosPreco[$index]),
+                            ]);
+                            $idPrecoProdutoExiste = PrecosProdutos::select('precos_produtos.idProduto', 'produtos.Nome', 'precos_produtos.tipoPreco',)
+                            ->join('produtos', 'produtos.idProduto', '=', 'precos_produtos.idProduto')
+                            ->where('precos_produtos.idProduto', $idProdutos[$index])
+                                ->where('precos_produtos.tipoPreco', $index2)
+                                ->where('precos_produtos.deleted_at', NUll)->get();
+                            $data['retornos'][] = 'Preço do produto: ' . $idPrecoProdutoExiste[0]->Nome . ' no Tipo:' . $idPrecoProdutoExiste[0]->tipoPreco . ', Foi Inserido com sucesso';
+                        } else {
+                            // var_dump($idPrecoProdutoExiste);die;
+                            $data['retornos'][] = 'Preço do produto: ' . $idPrecoProdutoExiste[0]->Nome . ' no Tipo:' . $idPrecoProdutoExiste[0]->tipoPreco . ' já existe, para editá-lo utilize a tela de edição de preços';
+                        }
                     }
                 }
+                
             }
             
         }
