@@ -53,10 +53,10 @@
         </div>
     </body>
 
-@include('produtos.modals.modalEditar')
+
 
 </x-app-layout>
-
+@include('produtos.modals.modalEditar')
 <script>
     var produtos = ('<?php echo json_encode($produtos); ?>');
 </script>

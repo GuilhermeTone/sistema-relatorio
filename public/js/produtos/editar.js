@@ -48,7 +48,7 @@ $(document).ready(function () {
 
                     var botoes = '';
                     botoes += `
-                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" data-modal-toggle="default-modal" style="width:150px; height: 35px;" onclick="editarProduto('`+ row["idProduto"] + `')">
+                    <button type="button" class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg" style="width:150px; height: 35px;" onclick="editarProduto('`+ row["idProduto"] + `')">
                         <i class="fa fa-trash"></i>
                             Editar produto
                     </button><br>
@@ -109,6 +109,7 @@ function editarProduto(idProduto) {
             $('#tipo').val(response[0].Tipos);
             $('#unidade').val(response[0].Padrao);
             $('#ocultar').val(response[0].Ocultar);
+            $('#default-modal').removeClass('hidden');
         },
         error: (error) => {
             swal({
@@ -194,3 +195,6 @@ function excluirProduto(idProduto) {
     });
 
 }
+$('#fecharModal').click(function () {
+    $('#default-modal').addClass('hidden');
+});
