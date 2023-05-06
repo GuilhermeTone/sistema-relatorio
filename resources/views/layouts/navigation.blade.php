@@ -85,6 +85,9 @@
                         <x-nav-link :href="route('cadastrarPedido')" :active="request()->routeIs('cadastrarPedido')">
                             {{ __('Cadastrar Pedidos') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('ListagemPedidos')" class="px-3 py-3" :active="request()->routeIs('ListagemPedidos')">
+                        {{ __('Listagem de Pedidos') }}
+                    </x-nav-link>
                     @endif
                     @if(Auth::user()->Cargo == 'comprador')
                         <x-nav-link :href="route('ListagemPedidos')" :active="request()->routeIs('ListagemPedidos')">
