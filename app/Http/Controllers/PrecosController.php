@@ -58,7 +58,13 @@ class PrecosController extends Controller
         }
         $produtos = Produto::select('idProduto', 'Nome', 'Tipos',)->get();
         $data['produtos'] = $produtos;
-        Session::flash('retornos', $data['retornos']);
+        if(isset($data['retornos'])){
+            Session::flash('retornos', $data['retornos']);
+        }else{
+            $data['retornos'][] = 'Nenhum preço foi inserido, nada foi feito';
+            Session::flash('retornos', $data['retornos']);
+        }
+
         return back();
     }
     public function editarPrecos()
