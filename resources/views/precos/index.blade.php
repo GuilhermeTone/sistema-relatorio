@@ -61,7 +61,7 @@
                                             class="block mt-1 produto" type="text"
                                             name="valorProduto[Caixa][{{ $index }}]" placeholder="Caixa" />
                                         <x-text-input class="valorProduto"
-                                            id="valorProduto[Unidade]['Caixa'][{{ $index }}]"
+                                            id="valorProduto[Unidade][{{ $index }}]"
                                             class="block mt-1 produto" type="text"
                                             name="valorProduto[Unidade][{{ $index }}]" placeholder="Unidade" />
                                         <x-text-input class="valorProduto" id="valorProduto[Saco][{{ $index }}]"
