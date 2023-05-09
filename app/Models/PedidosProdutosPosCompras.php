@@ -46,6 +46,26 @@ class PedidosProdutosPosCompras extends Model
 
         return DB::select($sql, $parametros);
     }
+    public function ChecaPedidoConfirmado($idPedido)
+    {
+
+        $sql =
+            "SELECT pp.idPedido
+        FROM pedidos_produtos_pos_compras pp
+        INNER JOIN pedidos p ON pp.idPedido = p.idPedido
+        WHERE p.deleted_at IS NULL
+        AND p.idPedido IN ($idPedido)";
+        // $parametros[] = $idPedido;
+
+        return DB::select($sql);
+    }
+    public function deletaprodutosPedidoConfirmado($listaPedido){
+
+        $sql = "UPDATE pedidos_produtos_pos_compras SET deleted_at = NOW() WHERE idPedido IN ($listaPedido)";
+
+        return DB::update($sql);
+    }
+
     public function listarValorTotal($dataPedido, $idLoja)
     {
         $parametros = array();

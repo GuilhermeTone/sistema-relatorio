@@ -96,8 +96,7 @@ class pedidosProdutos extends Model
         WHERE pp.deleted_at IS NULL
         AND pd.deleted_at IS NULL
         AND p.deleted_at IS NULL
-        AND DATE(p.created_at) = ?
-        AND p.Status = 'NaoConfirmado'";
+        AND DATE(p.created_at) = ?";
         $parametros[] = $dataPedido;
         if ($tipo != 'Frutas, Legumes, Verduras') {
             $sql .= " AND pd.Tipos = ?";

@@ -99,11 +99,7 @@ class PedidosController extends Controller
     }
     public function listagemPedidos()
     {
-        $dataAtual = date("Y-m-d");
-        $tipo = 'Frutas';
-        $idLoja = [];
         $data = [];
-        $pedidosProdutosModel = new pedidosProdutos();
 
         $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
 
@@ -219,6 +215,7 @@ class PedidosController extends Controller
     }
     public function cadastrarPedidosPosCompra(Request $request)
     {
+        $pedidosPosCompraModel = new PedidosProdutosPosCompras();
 
         $idPedidos = $request->get('idPedido');
         $idProdutos = $request->get('idProduto');
@@ -226,22 +223,57 @@ class PedidosController extends Controller
         $Unidades = $request->get('Unidade');
         $Valores = $request->get('Valor');
 
-        //FOREACH PARA FRUTAS
-        foreach ($idPedidos as $index => $value) {
-            if($Quantidades[$index] > 0){
-                $idPedidoProduto = PedidosProdutosPosCompras::create([
-                    'idProduto' => $idProdutos[$index],
-                    'idPedido' => $idPedidos[$index],
-                    'Quantidade' => $Quantidades[$index],
-                    'Unidade' => $Unidades[$index],
-                    'Valor' => str_replace(',', '.', $Valores[$index]),
-                ]);
-            }
-            Pedidos::where('idPedido', $idPedidos[$index])->update(['Status' => 'Confirmado']);
-        }
+        $listaPedido = '';
 
-        Session::flash('mensagem', 'Pedido Atualizado com sucesso, para ver o pedido confirmado, vá para tela de listagem de pedidos confirmados');
-        return back();
+        foreach($idPedidos as $idPedido){
+            $listaPedido = $idPedido . ',' .  $listaPedido;
+        }
+        $listaPedido = rtrim($listaPedido, ",");
+
+        
+        $idPedidoConfirmado =  $pedidosPosCompraModel->ChecaPedidoConfirmado($listaPedido);
+
+        // var_dump($idPedidoProduto);die;
+        //FOREACH PARA FRUTAS
+        if(!isset($idPedidoConfirmado)){
+            foreach ($idPedidos as $index => $value) {
+                if ($Quantidades[$index] > 0) {
+
+
+                    $idPedidoProduto = PedidosProdutosPosCompras::create([
+                        'idProduto' => $idProdutos[$index],
+                        'idPedido' => $idPedidos[$index],
+                        'Quantidade' => $Quantidades[$index],
+                        'Unidade' => $Unidades[$index],
+                        'Valor' => str_replace(',', '.', $Valores[$index]),
+                    ]);
+                }
+                Pedidos::where('idPedido', $idPedidos[$index])->update(['Status' => 'Confirmado']);
+            }
+        }else{
+           
+            $pedidosPosCompraModel->deletaprodutosPedidoConfirmado($listaPedido);
+
+            foreach ($idPedidos as $index => $value) {
+                pedidosProdutos::where('idProduto', $idProdutos[$index])
+                    ->where('idPedido', $idPedidos[$index])
+                    ->update(['Quantidade' => $Quantidades[$index]]);
+                if ($Quantidades[$index] > 0) {
+                    $idPedidoProduto = PedidosProdutosPosCompras::create([
+                        'idProduto' => $idProdutos[$index],
+                        'idPedido' => $idPedidos[$index],
+                        'Quantidade' => $Quantidades[$index],
+                        'Unidade' => $Unidades[$index],
+                        'Valor' => str_replace(',', '.', $Valores[$index]),
+                    ]);
+                }
+                Pedidos::where('idPedido', $idPedidos[$index])->update(['Status' => 'Confirmado']);
+            }
+        
+
+            Session::flash('mensagem', 'Pedido Atualizado com sucesso, para ver o pedido confirmado, vá para tela de listagem de pedidos confirmados');
+            return back();
+        }
     }
     public function inserirValores()
     {
