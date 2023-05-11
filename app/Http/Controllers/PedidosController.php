@@ -11,6 +11,7 @@ use App\Models\PrecosProdutos;
 use App\Models\PedidosProdutosPosCompras;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class PedidosController extends Controller
 {
@@ -25,6 +26,15 @@ class PedidosController extends Controller
     }
     public function create(Request $request)
     {
+
+        $dataPedido = $request->get('dataPedido');
+
+        $dataPedido = $dataPedido . ' 08:00:00';
+
+        // $dataPedidoCarbon = Carbon::createFromFormat('Y-m-d H:i:s', $dataPedido);
+        // $dataFormatada = $dataPedidoCarbon->toDateTimeString();
+
+
         //Frutas
         $idProdutoFrutas = $request->get('idProdutoFrutas');
         $quantidadeFrutas = $request->get('quantidadeFrutas');
@@ -42,14 +52,16 @@ class PedidosController extends Controller
 
         $erros = [];
 
-        
 
+        
        
 
             $idPedido = Pedidos::create([
                 'idLoja' => Auth::user()->idLoja,
                 'idUsuario' => Auth::id(),
             ]);
+
+            Pedidos::where('idPedido', $idPedido->id)->update(['created_at' => $dataPedido]);
 
             //FOREACH PARA FRUTAS
             foreach ($idProdutoFrutas as $index => $value) {

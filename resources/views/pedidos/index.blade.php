@@ -150,7 +150,16 @@
                             @endforeach
                         </div>
                     </div>
-                    <button type="submit" id="btnsubmitpedido" style="width: 10rem; height:2rem; margin-left: 15px" onclick="desabilita()"
+                    <div class="px-5 md:w-2/12">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-first-name">
+                        Coloque a data do pedido
+                    </label>
+                     <input id="dataPedido" type="date" name="dataPedido" value="{{date('Y-m-d')}}"
+                        class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                        <button type="submit" id="btnsubmitpedido" style="width: 10rem; height:2rem; margin-left: 15px" onclick="desabilita()"
+                    
                         class="text-white bg-gray-800 mt-2 hover:bg-gray-900 focus:outline-none focus:ring-4 mb-2 focus:ring-gray-300 font-medium text-sm px-5 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 rounded-lg">Salvar</button>
                 </form>
             </div>
