@@ -10,6 +10,11 @@
     .ocultar-elementos *:not(table) {
         display: none !important;
     }
+    @media print {
+        td {
+            padding: 0px !important;
+        }
+    }
 </style>
 <x-app-layout>
     <x-slot name="header">
@@ -47,7 +52,7 @@
                         <select id="loja" name ="loja" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected disabled>Selecione A loja</option>
                             @foreach ($lojas as $loja)
-                                @if($loja->idLoja != 1)
+                                @if($loja->idLoja == 1)
                                     <option value="{{$loja->idLoja}}">{{$loja->Nome}}</option>
                                 @endif
                             @endforeach
@@ -76,6 +81,7 @@
                     <table class="table table-flush text-slate-500 w-100" datatable id="datatable-search"
                         style="width: 100% !important">
                         <thead class="thead-light">
+                            
                             <tr>
                                 <th class="centralizar">Produtos</th>
                                 <th class="centralizar">Quantidade</th>

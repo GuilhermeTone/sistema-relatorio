@@ -23,7 +23,7 @@ class PedidosProdutosPosCompras extends Model
         $parametros = array();
 
         $sql =
-            "SELECT
+        "SELECT
         pd.Nome
         , pp.idPedido
         , pp.idProduto
@@ -31,6 +31,7 @@ class PedidosProdutosPosCompras extends Model
       	, pp.Unidade
       	,l.Nome AS NomeLoja
       	,pp.Valor
+        ,DATE(pp.created_at) AS DataPedido
         FROM pedidos_produtos_pos_compras pp
         INNER JOIN produtos pd ON pp.idProduto = pd.idProduto
         INNER JOIN pedidos p ON pp.idPedido = p.idPedido

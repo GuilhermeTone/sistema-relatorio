@@ -6,6 +6,9 @@ $(document).ready(function () {
 
 
 });
+let LojaImprimir;
+let dataPedidoImprimir;
+
 var tabela = jQuery('.table').DataTable({
 
     "rowCallback": function (row, data, index) {
@@ -47,7 +50,7 @@ var tabela = jQuery('.table').DataTable({
                 var input = '';
                 var valorUnidade = row['Valor'].toFixed(2) / row['Quantidade'];
                 input += `
-                    <p>` + valorUnidade.toFixed(2)  +`</p>
+                    <td>` + valorUnidade.toFixed(2)  +`</td>
                     `
                     ;
 
@@ -56,7 +59,16 @@ var tabela = jQuery('.table').DataTable({
             sClass: "text-center",
         },
         {
-            data: "Valor",
+            data: function (row, type, val, meta) {
+
+                var input = '';
+                input += `
+                    <td>` + row['Valor'].toFixed(2) + `</td>
+                    `
+                    ;
+
+                return input;
+            },
             sClass: "text-center",
         },
     ],
@@ -111,13 +123,25 @@ function pesquisar() {
                 tabela.rows.add(response.Pedidos).draw()
 
                 var valorTotal = response.ValorTotal[0].ValorTotal;
-                var novaLinha = '<tr><th class="centralizar">Valor Total Pedido:</th><th></th><th></th><th></th><th class="centralizar">' + valorTotal + '</th></tr>';
-
+                if(valorTotal){
+                    var novaLinha = '<tr><th class="centralizar">Valor Total Pedido:</th><th></th><th></th><th></th><th class="centralizar">' + valorTotal.toFixed(2); + '</th></tr>';
+                }
+               
                 var tfoot = $('.table').find('tfoot');
                 tfoot.empty();
                 tfoot.append(novaLinha);
                 tabela.draw();
                 $('#tabela').show();
+
+                
+                if (response.Pedidos[0].DataPedido){
+                    dataPedidoImprimir = response.Pedidos[0].DataPedido;
+                }
+                if (response.Pedidos[0].NomeLoja){
+                    LojaImprimir = response.Pedidos[0].NomeLoja;
+                }
+                
+
 
             }
         },
@@ -133,12 +157,25 @@ function pesquisar() {
     })
 }
 
+
 function imprimir() {
+
+
+    var dataPedidoString = dataPedidoImprimir; // Data no formato "yyyy-mm-dd"
+
+    var partesData = dataPedidoString.split("-"); // Dividir a string da data em partes: [ano, mês, dia]
+
+    var dia = partesData[2];
+    var mes = partesData[1];
+    var ano = partesData[0];
+
+    var dataFormatada = `${dia}/${mes}/${ano}`; // Formatar a data no formato "dd/mm/yyyy"
 
     printJS({
         printable: 'datatable-search',
         type: 'html',
-        // header: 'Exemplo de tabela impressa com print.js',
-        style: 'table {border-collapse: collapse; width: 100%;} th, td {border: 1px solid black; padding: 0px; font-size:12px; text-align:center}',
+        // header: '<p>Exemplo de tabela impressa com print.js</p>',
+        documentTitle: LojaImprimir + ' ' + dataFormatada,
+        style: 'table {border-collapse: collapse; width: 100%;} th, td {border: 1px solid black; padding: 0px; margin: 0; font-size:12px; text-align:center} td{padding:0px !important;}',
     });
 }

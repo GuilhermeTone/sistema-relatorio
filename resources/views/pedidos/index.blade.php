@@ -62,11 +62,7 @@
                                     <div class="flex justify-center">
                                         <div class="flex justify-center">
                                             <select id="unidadeFrutas[{{$key}}]" name="unidadeFrutas[{{$key}}]" class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option value="Caixa" {{ $value->Padrao == 'Caixa' ? 'selected' : '' }}>Cx</option>
-                                                <option value="Unidade" {{ $value->Padrao == 'Unidade' ? 'selected' : '' }}>Un</option>
-                                                <option value="Saco" {{ $value->Padrao == 'Saco' ? 'selected' : '' }}>Sc</option>
-                                                <option value="Maco" {{ $value->Padrao == 'Maco' ? 'selected' : '' }}>Mç</option>
-                                                <option value="Kilo" {{ $value->Padrao == 'Kilo' ? 'selected' : '' }}>Kg</option>
+                                                <option value="{{ $value->Padrao}}">{{ ($value->Padrao == 'Caixa') ? 'CX' : (($value->Padrao == 'Unidade') ? 'UN' : (($value->Padrao == 'Saco') ? 'SC' : (($value->Padrao == 'Maco') ? 'MC' : 'Kg')))}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -100,11 +96,7 @@
                                     <div class="flex justify-center">
                                         <div class="flex justify-center">
                                             <select id="unidadeLegumes[{{$key}}]" name="unidadeLegumes[{{$key}}]" class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option value="Caixa" {{ $value->Padrao == 'Caixa' ? 'selected' : '' }}>Cx</option>
-                                                <option value="Unidade" {{ $value->Padrao == 'Unidade' ? 'selected' : '' }}>Un</option>
-                                                <option value="Saco" {{ $value->Padrao == 'Saco' ? 'selected' : '' }}>Sc</option>
-                                                <option value="Maco" {{ $value->Padrao == 'Maco' ? 'selected' : '' }}>Mc</option>
-                                                <option value="Kilo" {{ $value->Padrao == 'Kilo' ? 'selected' : '' }}>Kg</option>
+                                                <option value="{{ $value->Padrao}}">{{ ($value->Padrao == 'Caixa') ? 'CX' : (($value->Padrao == 'Unidade') ? 'UN' : (($value->Padrao == 'Saco') ? 'SC' : (($value->Padrao == 'Maco') ? 'MC' : 'Kg')))}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -138,11 +130,7 @@
                                     <div class="flex justify-center">
                                         <div class="flex justify-center">
                                             <select id="unidadeVerduras[{{$key}}]" name="unidadeVerduras[{{$key}}]" class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option value="Caixa" {{ $value->Padrao == 'Caixa' ? 'selected' : '' }}>Cx</option>
-                                                <option value="Unidade" {{ $value->Padrao == 'Unidade' ? 'selected' : '' }}>Un</option>
-                                                <option value="Saco" {{ $value->Padrao == 'Saco' ? 'selected' : '' }}>Sc</option>
-                                                <option value="Maco" {{ $value->Padrao == 'Maco' ? 'selected' : '' }}>Mc</option>
-                                                <option value="Kilo" {{ $value->Padrao == 'Kilo' ? 'selected' : '' }}>Kg</option>
+                                                <option value="{{ $value->Padrao}}">{{ ($value->Padrao == 'Caixa') ? 'CX' : (($value->Padrao == 'Unidade') ? 'UN' : (($value->Padrao == 'Saco') ? 'SC' : (($value->Padrao == 'Maco') ? 'MC' : 'Kg')))}}</option>
                                             </select>
                                         </div>
                                     </div>

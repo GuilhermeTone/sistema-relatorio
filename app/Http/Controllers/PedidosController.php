@@ -179,7 +179,7 @@ class PedidosController extends Controller
     public function pedidosPosCompra()
     {
         $data['lojas'] = Lojas::select('idLoja', 'Nome')->where('deleted_at', NULL)->get();
-        $data['produtos'] = Produto::select('idProduto', 'Nome')->where('deleted_at', NULL)->get();
+        $data['produtos'] = Produto::select('idProduto', 'Nome')->where('deleted_at', NULL)->orderBy('Nome', 'asc')->get();
         $data['mensagem'] = session('mensagem');
         return view('pedidosPosCompra.index', $data);
     }
