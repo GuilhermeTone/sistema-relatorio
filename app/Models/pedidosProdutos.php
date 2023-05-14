@@ -39,7 +39,7 @@ class pedidosProdutos extends Model
                 $parametros[] = $tipo;
             }
             $sql .= " AND p" . $idLoja . ".deleted_at IS NULL
-            GROUP BY pd" . $idLoja . ".idProduto), 0) AS Quantidade_Loja" . $idLoja;
+            GROUP BY pd" . $idLoja . ".idProduto), '') AS Quantidade_Loja" . $idLoja;
             
            
 
