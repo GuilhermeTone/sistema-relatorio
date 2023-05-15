@@ -105,32 +105,16 @@ function pesquisar() {
 }
 
 function imprimir() {
-    // // Cria uma variável que contém a tabela
-    // var tabela = document.getElementById('datatable-search');
+    
+    var dataPedido = $('#dataPedido').val();
+    var componentesData = dataPedido.split("-");
 
-    // // Salva o HTML da tabela em uma variável
-    // var tabela_html = tabela.outerHTML;
-
-    // // Abre uma nova janela com o HTML da tabela
-    // var nova_janela = window.open('', 'Imprimir Tabela');
-
-    // // Escreve o HTML da tabela na nova janela
-    // nova_janela.document.write('<html><head><title>Imprimir Tabela</title></head><body>');
-    // nova_janela.document.write(tabela_html);
-    // nova_janela.document.write('</body></html>');
-
-    // // Fecha o documento atual
-    // nova_janela.document.close();
-
-    // // Espera a janela ser carregada e imprime a tabela
-    // setTimeout(function () {
-    //     nova_janela.print();
-    //     nova_janela.close();
-    // }, 1000);
+    // Reorganize os componentes da data
+    var dataFormatada = componentesData[2] + "/" + componentesData[1] + "/" + componentesData[0];
     printJS({
         printable: 'datatable-search',
         type: 'html',
-        // header: 'Exemplo de tabela impressa com print.js',
+        documentTitle: dataFormatada,
         style: 'table {border-collapse: collapse; width: 50% !important; margin: 0 auto;text-align: center;} th, td {border: 1px solid black; padding: 0px; margin: 0px; font-size:10px; text-align:center} body { text-align: center; }',
     });
 }
