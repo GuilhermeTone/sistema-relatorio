@@ -115,6 +115,6 @@ function imprimir() {
         printable: 'datatable-search',
         type: 'html',
         documentTitle: dataFormatada,
-        style: 'table {border-collapse: collapse; width: 50% !important; margin: 0 auto;text-align: center;} th, td {border: 1px solid black; padding: 0px; margin: 0px; font-size:10px; text-align:center} body { text-align: center; }',
+        style: 'table {border-collapse: collapse; width: 100% !important; margin: 0 auto;text-align: center;} th, td {border: 1px solid black; padding: 0px; margin: 0px; font-size:12px; text-align:center} body { text-align: center; }',
     });
 }

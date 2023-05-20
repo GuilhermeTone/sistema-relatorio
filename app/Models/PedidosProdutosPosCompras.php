@@ -42,11 +42,14 @@ class PedidosProdutosPosCompras extends Model
         AND p.idLoja = ?
         AND DATE(p.created_at) = ?
         AND p.Status = 'Confirmado'
-        ORDER BY CASE
+        ORDER BY 
+    CASE
         WHEN pd.Tipos = 'Frutas' THEN 1
         WHEN pd.Tipos = 'Legumes' THEN 2
         WHEN pd.Tipos = 'Verduras' THEN 3
-        END, pd.Nome;";
+    END,
+    pd.Tipos, -- Adicionado para ordenação alfabética
+    pd.Nome";
         $parametros[] = $idLoja;
         $parametros[] = $dataPedido;
 

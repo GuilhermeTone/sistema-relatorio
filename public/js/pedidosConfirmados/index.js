@@ -22,6 +22,8 @@ var tabela = jQuery('.table').DataTable({
 
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 
+    "order": [], // Remover a ordenação
+
     buttons: [
         {
             extend: "excel",
