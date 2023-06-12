@@ -27,6 +27,7 @@ var tabela = jQuery('.table').DataTable({
         {
             text: 'Preencher Tabela',
             action: function () {
+                $('#btnsubmitproduto').prop('disabled', true);
                 // Chame a função Ajax para buscar os valores do banco de dados
                 $.ajax({
                     url: `${APP_URL}/inserirValores`,
@@ -61,9 +62,11 @@ var tabela = jQuery('.table').DataTable({
                                 }
                             });
                         }
+                        $('#btnsubmitproduto').prop('disabled', false);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
+                        $('#btnsubmitproduto').prop('disabled', false);
                     }
                 });
             }
