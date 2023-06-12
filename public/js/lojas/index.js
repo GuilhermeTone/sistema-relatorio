@@ -97,7 +97,8 @@ function desabilita() {
 }
 function excluirLoja(idLoja){
     swal({
-        Title: "Atenção!",
+        title: "Atenção!",
+        icon: 'warning',
         text: "Deseja realmente excluir a Loja?",
         closeOnClickOutside: false,
         closeOnEsc: false,

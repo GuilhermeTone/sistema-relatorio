@@ -208,7 +208,8 @@ $('#formposcompra').on('submit', function (event) {
     console.log(form)
     if (form.checkValidity()) {
         swal({
-            Title: "Atenção!",
+            title: "Atenção!",
+            icon: 'warning',
             text: "Deseja realmente confirmar o pedido",
             closeOnClickOutside: false,
             closeOnEsc: false,

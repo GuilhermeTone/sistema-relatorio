@@ -9,7 +9,8 @@ $('#formPedido').on('submit', function (event) {
     console.log(form)
     if (form.checkValidity()) {
         swal({
-            Title: "Atenção!",
+            title: "Atenção!",
+            icon: 'warning',
             text: "Deseja realmente Enviar o Pedido",
             closeOnClickOutside: false,
             closeOnEsc: false,
